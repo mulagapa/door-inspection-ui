@@ -151,7 +151,7 @@ const Format = (props) => {
     }
     
     const handleSubmitCB = () => {
-        axios.put('http://127.0.0.1:5000/api/lockshop/door', {
+        axios.put('http://127.0.0.1:8000/api/lockshop/door', {
             "data": attributes
         }).then(response => {
             console.log ("Modification done", attributes)
