@@ -15,7 +15,7 @@ const DoorContinuoushinge = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:8000/api/lockshop/doorcontinuoushinge', {
+            .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,7 +33,7 @@ const DoorContinuoushinge = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:8000/api/lockshop/doorcontinuoushinge', {
+        .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
             params: {
                 "id": props.continuoushinge_id
             }
@@ -56,13 +56,13 @@ const DoorContinuoushinge = (props) => {
             fetchData();
             setUpdate(false);
         }
-    }, [update])
+    })
 
     const addBuilding = (e) => {
         e.preventDefault()
         let continuoushingeName = continuoushingeref.current.value
         
-        axios.post('http://127.0.0.1:8000/api/lockshop/doorcontinuoushinge', {
+        axios.post('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
             "name": continuoushingeName,
         }).then(response => {
             continuoushingeref.current.value = "";

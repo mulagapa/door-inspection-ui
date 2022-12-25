@@ -15,7 +15,7 @@ const Compliance = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:8000/api/lockshop/doorcompliance', {
+            .get('http://127.0.0.1:5000/api/lockshop/doorcompliance', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,7 +33,7 @@ const Compliance = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:8000/api/lockshop/doorcompliance', {
+        .get('http://127.0.0.1:5000/api/lockshop/doorcompliance', {
             params: {
                 "id": props.compliance_id
             }
@@ -56,13 +56,13 @@ const Compliance = (props) => {
             fetchData();
             setUpdate(false);
         }
-    }, [update])
+    })
 
     const addBuilding = (e) => {
         e.preventDefault()
         let complianceName = complianceref.current.value
         
-        axios.post('http://127.0.0.1:8000/api/lockshop/doorcompliance', {
+        axios.post('http://127.0.0.1:5000/api/lockshop/doorcompliance', {
             "name": complianceName,
         }).then(response => {
             complianceref.current.value = "";
