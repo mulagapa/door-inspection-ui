@@ -14,6 +14,9 @@ const Floor = (props) => {
     const [optionList, setOptionList] = useState([])
     const floorsId = useRef(null);
 
+    const colorStyle = {
+        color: 'white'
+    }
 
     useEffect(() => {  
         fetchData();
@@ -69,11 +72,13 @@ const Floor = (props) => {
                         <Form.Select placeholder='Select Floor' onChange={handleChange}>
                             {
                             (optionList !== undefined) ?
-                                optionList.map((item) => (
-                                    <option key={item.floor_no} value={item.floor_no}>
-                                        {item.floor_no}
-                                    </option>
-                                ))
+                                (optionList.length > 0)?
+                                    optionList.map((item) => (
+                                        <option key={item.floor_no} value={item.floor_no}>
+                                            {item.floor_no}
+                                        </option>
+                                    ))
+                                    :<p style={colorStyle}>No Floors To display for this Building</p>
                                 :<></>
                             }
                         </Form.Select>
