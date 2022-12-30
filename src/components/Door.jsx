@@ -42,7 +42,8 @@ const Door = (props) =>{
             .get('http://127.0.0.1:5000/api/lockshop/door', {
                 params: {
                     "building_id": props.building_value,
-                    "floor_no": props.floor_value
+                    "floor_no": props.floor_value,
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2NzI0NDI5NDl9.OXqUqdpwe4lz5rtfP5dagW1M52nFDbykZtmegw3UjHk"
                 }
             })
             .then((response) => {
