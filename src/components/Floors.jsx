@@ -14,6 +14,9 @@ const Floor = (props) => {
     const [optionList, setOptionList] = useState([])
     const floorsId = useRef(null);
 
+    const colorStyle = {
+        color: 'white'
+    }
 
     useEffect(() => {  
         fetchData();
@@ -65,19 +68,24 @@ const Floor = (props) => {
         <div >
             <div className='row'>
                 <div className='left-panel box'>
-                    <FloatingLabel label="Floors">
-                        <Form.Select placeholder='Select Floor' onChange={handleChange}>
-                            {
-                            (optionList !== undefined) ?
-                                optionList.map((item) => (
-                                    <option key={item.floor_no} value={item.floor_no}>
-                                        {item.floor_no}
-                                    </option>
-                                ))
-                                :<></>
-                            }
-                        </Form.Select>
-                    </FloatingLabel>
+                    {
+                        (optionList !== undefined) ?
+                            (optionList.length > 0)?
+                                <FloatingLabel label="Floors">
+                                    <Form.Select placeholder='Select Floor' onChange={handleChange}>
+                                        {
+                                                optionList.map((item) => (
+                                                    <option key={item.floor_no} value={item.floor_no}>
+                                                        {item.floor_no}
+                                                    </option>
+                                                ))
+                                        }
+                                    </Form.Select>
+                                </FloatingLabel>
+                                :<p style={colorStyle}>No Floors To display for this Building</p>
+                            :<></>
+                    }
+                    
                 </div>
                 <div className='right-panel box'>
                     <Form>
