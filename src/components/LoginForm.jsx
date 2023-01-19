@@ -1,10 +1,16 @@
 import axios from "axios";
 import React, {useState} from "react";
+import Cookies from 'universal-cookie';
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Redirect } from 'react-router';
 
 export const Login = () => {
 
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const cookies = new Cookies();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -13,7 +19,14 @@ export const Login = () => {
         axios.post('http://127.0.0.1:5000/api/lockshop/login', {
             "autherization": {"username": username ,"password" : password}
         }).then(response => {
-            console.log("JWT Token", response.data.result.token)
+            // Set cookie with expiry time 30 minutes
+            cookies.set('jwt_token', response.data.result.token, { path: '/', expires: new Date(Date.now()+30*60*1000)});
+            console.log("jwt cookie is :", cookies.get('jwt_token'))
+            navigate("/");
+            window.location.reload();
+        }).catch(error => {
+            console.log('Error in Login : ', error)
+            alert('Login Failed! Incorrect username or password.')
         })
     }
 

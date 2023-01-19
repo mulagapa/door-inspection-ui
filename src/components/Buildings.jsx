@@ -6,6 +6,7 @@ import {FloatingLabel } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
+import Cookies from 'universal-cookie';
 
 const Building = (props) => {
     const [select, setSelected] = useState(() => "Building");
@@ -14,6 +15,7 @@ const Building = (props) => {
     const buildingref = useRef(null);
     const coderef = useRef(null);
     const floorsref = useRef(null);
+    const cookies = new Cookies();
 
 
     const fetchData = () => {
@@ -21,6 +23,9 @@ const Building = (props) => {
             .get('http://127.0.0.1:5000/api/lockshop/building', {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
+                },
+                params: {
+                    "token": cookies.get('jwt_token','')
                 }
             })
             .then((response) => {
@@ -33,7 +38,9 @@ const Building = (props) => {
                     setOptionList(['test'])
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error)
+            });
     };
 
     useEffect(() => {
@@ -42,7 +49,7 @@ const Building = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [update])
 
     const addBuilding = (e) => {
         e.preventDefault()

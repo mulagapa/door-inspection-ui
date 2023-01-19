@@ -11,20 +11,24 @@ import Format from './components/Format';
 import { Register } from './components/RegisterForm';
 import { Login } from './components/LoginForm';
 
+
 function App() {
   window.bundle = localization;
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          {/* <Route path="/buildings"  element = {<Building/>} /> */}
-          <Route path="/form"  element = {<Format/>} />
-          <Route path="/login" element = {<Login/>} />
-          <Route path="/register" element = {<Register/>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      <Header />
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            {/* <Route path="/buildings"  element = {<Building/>} /> */}
+            <Route path="/form"  element = {<Format/>} />
+            <Route path="/login" element = {<Login/>} />
+            <Route path="/register" element = {<Register/>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 

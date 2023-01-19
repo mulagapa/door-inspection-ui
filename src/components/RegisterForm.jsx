@@ -29,7 +29,7 @@ export const Register = () => {
                     <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="confirmPass" placeholder="******" id="confirmPass" name="confirmPass"/><br/><br/>
                     <button type="submit">Register User</button>
                 </form><br/>
-                Already have an account?<a href="./Register">Log In</a><br/>
+                Already have an account?<a href="./login">Log In</a><br/>
             </div>
         </>
     )

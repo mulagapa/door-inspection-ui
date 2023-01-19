@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
 import {FloatingLabel } from 'react-bootstrap';
 import '../HomePage.css'
+import Cookies from 'universal-cookie';
 
 
 const Door = (props) =>{
@@ -13,6 +14,7 @@ const Door = (props) =>{
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
     const doorsId = useRef(null);
+    const cookies = new Cookies();
 
     const fetchDataId = (door_id) => {
         console.log ("request came param is", door_id)
@@ -38,12 +40,13 @@ const Door = (props) =>{
     };
 
     const fetchData = () => {
+        console.log('JWT token is ', cookies.get('jwt_token'));
         axios
             .get('http://127.0.0.1:5000/api/lockshop/door', {
                 params: {
                     "building_id": props.building_value,
                     "floor_no": props.floor_value,
-                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJleHAiOjE2NzI0NDI5NDl9.OXqUqdpwe4lz5rtfP5dagW1M52nFDbykZtmegw3UjHk"
+                    "token": cookies.get('jwt_token')
                 }
             })
             .then((response) => {

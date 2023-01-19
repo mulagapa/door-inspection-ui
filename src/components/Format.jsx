@@ -29,6 +29,7 @@ import Button from '@mui/material/Button';
 import '../HomePage.css'
 import { ButtonBase, ButtonGroup } from '@mui/material';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const Format = (props) => {
 
@@ -36,6 +37,7 @@ const Format = (props) => {
     const [floor, setFloor] = useState("")
     const [door,setDoor] = useState("")
     const [attributes, setAttributes] = useState({})
+    const cookies = new Cookies();
 
 
     const handleFloorCallback = (floorData) => {
@@ -163,54 +165,60 @@ const Format = (props) => {
 
     return(
         <>
-        <h1 className='title'> Door Inspector </h1> 
-        <div className='TopWidth' >
-            <Building setFloorActive = {handleFloorCallback}/>
             {
-                (floor !== "") ?
-                <Floor value = {floor} setDoorActive = {handleDoorCallback}/> :
-                <></>
-            }
-            {
-                (door !== "") ? 
-                <Door building_value = {floor} floor_value = {door} setAttributesActive = {handleAttributesCallback}/> :
-                <></>
-            }
-        </div>
-        {
-            (Object.keys(attributes).length !== 0)?
-            <div className='content-container'>
-                <div className='row'>
-                    <div className='left-panel box'>
-                        <Compliance compliance_id = {attributes["compliance_id"]} handler = {handleComplianceCB}/>
-                        <DoorAstragal astragal_id = {attributes["astragal_id"]} handler = {handleAstragalCB}/>
-                        <DoorStop stop_id = {attributes["stop_id"]} handler = {handleStopCB}/>
-                        <DoorMagholder magholder_id = {attributes["mag_holder_id"]} handler = {handleMagHolderCB}/>
-                        <DoorFlushbolt flushbolt_id = {attributes["flush_bolt_id"]} handler = {handleFlushBoltCB}/>
-                        <DoorCoordinator coordinator_id = {attributes["coordinator_id"]} handler = {handleCoordinatorCB}/>
-                        <DoorCloser closer_id = {attributes["closer_id"]} handler = {handleCloserCB}/>
-                        <DoorCylinder cylinder_id = {attributes["cylinder_id"]} handler = {handleCylinderCB}/>
-                        <DoorDelayegress delayegress_id = {attributes["delay_egress_id"]} handler = {handleDelayEgressCB}/>
-                        <DoorTrim trim_id = {attributes["trim_id"]} handler = {handleTrimCB}/>
-                        <DoorExitdevice exitdevice_id = {attributes["exit_device_id"]} handler = {handleExitDeviceCB}/>
-                        <DoorStrike strike_id = {attributes["strike_id"]} handler = {handleStrikeCB}/>
-                    </div>
-                    <div className='right-panel box'>
-                        <DoorElectriclockset electriclockset_id = {attributes["electric_lockset_id"]} handler = {handleEletricLockSetCB}/>
-                        <DoorLockset lockset_id = {attributes["lockset_id"]} handler = {handleLockSetCB}/>
-                        <DoorPivot pivot_id = {attributes["pivot_id"]} handler = {handlePivotCB}/>
-                        <DoorHinge hinge_id = {attributes["hinge_id"]} handler = {handleHingeCB}/>
-                        <DoorContinuoushinge continuoushinge_id = {attributes["continous_hinge_id"]} handler = {handleContinuousHingeCB}/>
-                        <DoorTransom transom_id = {attributes["transom_id"]} handler = {handleTransomCB}/>
-                        <DoorType type_id = {attributes["type_id"]} handler = {handleTypeCB}/>
-                        <DoorFrame frame_id = {attributes["frame_id"]} handler = {handleFrameCB}/>
-                        <DoorFirerating firerating_id = {attributes["fire_rating_id"]} handler = {handleFireRatingCB}/>
-                        <DoorCategory category_id = {attributes["category_id"]} handler = {handleCategoryCB}/>
-                        <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>
-                    </div>
+            (cookies.get('jwt_token'))?
+            <>
+                <h1 className='title'> Door Inspector </h1> 
+                <div className='TopWidth' >
+                    <Building setFloorActive = {handleFloorCallback}/>
+                    {
+                        (floor !== "") ?
+                        <Floor value = {floor} setDoorActive = {handleDoorCallback}/> :
+                        <></>
+                    }
+                    {
+                        (door !== "") ? 
+                        <Door building_value = {floor} floor_value = {door} setAttributesActive = {handleAttributesCallback}/> :
+                        <></>
+                    }
                 </div>
-                <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>
-            </div>: <></>
+                {   
+                        (Object.keys(attributes).length !== 0)?
+                        <div className='content-container'>
+                            <div className='row'>
+                                <div className='left-panel box'>
+                                    <Compliance compliance_id = {attributes["compliance_id"]} handler = {handleComplianceCB}/>
+                                    <DoorAstragal astragal_id = {attributes["astragal_id"]} handler = {handleAstragalCB}/>
+                                    <DoorStop stop_id = {attributes["stop_id"]} handler = {handleStopCB}/>
+                                    <DoorMagholder magholder_id = {attributes["mag_holder_id"]} handler = {handleMagHolderCB}/>
+                                    <DoorFlushbolt flushbolt_id = {attributes["flush_bolt_id"]} handler = {handleFlushBoltCB}/>
+                                    <DoorCoordinator coordinator_id = {attributes["coordinator_id"]} handler = {handleCoordinatorCB}/>
+                                    <DoorCloser closer_id = {attributes["closer_id"]} handler = {handleCloserCB}/>
+                                    <DoorCylinder cylinder_id = {attributes["cylinder_id"]} handler = {handleCylinderCB}/>
+                                    <DoorDelayegress delayegress_id = {attributes["delay_egress_id"]} handler = {handleDelayEgressCB}/>
+                                    <DoorTrim trim_id = {attributes["trim_id"]} handler = {handleTrimCB}/>
+                                    <DoorExitdevice exitdevice_id = {attributes["exit_device_id"]} handler = {handleExitDeviceCB}/>
+                                    <DoorStrike strike_id = {attributes["strike_id"]} handler = {handleStrikeCB}/>
+                                </div>
+                                <div className='right-panel box'>
+                                    <DoorElectriclockset electriclockset_id = {attributes["electric_lockset_id"]} handler = {handleEletricLockSetCB}/>
+                                    <DoorLockset lockset_id = {attributes["lockset_id"]} handler = {handleLockSetCB}/>
+                                    <DoorPivot pivot_id = {attributes["pivot_id"]} handler = {handlePivotCB}/>
+                                    <DoorHinge hinge_id = {attributes["hinge_id"]} handler = {handleHingeCB}/>
+                                    <DoorContinuoushinge continuoushinge_id = {attributes["continous_hinge_id"]} handler = {handleContinuousHingeCB}/>
+                                    <DoorTransom transom_id = {attributes["transom_id"]} handler = {handleTransomCB}/>
+                                    <DoorType type_id = {attributes["type_id"]} handler = {handleTypeCB}/>
+                                    <DoorFrame frame_id = {attributes["frame_id"]} handler = {handleFrameCB}/>
+                                    <DoorFirerating firerating_id = {attributes["fire_rating_id"]} handler = {handleFireRatingCB}/>
+                                    <DoorCategory category_id = {attributes["category_id"]} handler = {handleCategoryCB}/>
+                                    <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>
+                                </div>
+                            </div>
+                            <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>
+                        </div>:<></>
+                }
+            </>
+            :<h1>User Needs to be logged in to Edit Door Information</h1>
         }
         </>
     );
