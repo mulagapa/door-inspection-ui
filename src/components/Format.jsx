@@ -30,6 +30,7 @@ import '../HomePage.css'
 import { ButtonBase, ButtonGroup } from '@mui/material';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import ExcelToCSV from './ExcelToCSV';
 
 const Format = (props) => {
 
@@ -169,6 +170,7 @@ const Format = (props) => {
             (cookies.get('jwt_token'))?
             <>
                 <h1 className='title'> Door Inspector </h1> 
+                <ExcelToCSV></ExcelToCSV>
                 <div className='TopWidth' >
                     <Building setFloorActive = {handleFloorCallback}/>
                     {

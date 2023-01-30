@@ -16,6 +16,10 @@ const Door = (props) =>{
     const doorsId = useRef(null);
     const cookies = new Cookies();
 
+    const colorStyle = {
+        color: 'white'
+    }
+
     const fetchDataId = (door_id) => {
         console.log ("request came param is", door_id)
         axios
@@ -109,18 +113,24 @@ const Door = (props) =>{
         <div >
             <div className='row'>
                 <div className='left-panel box'>
-                        <FloatingLabel label="Door">
-                            <Form.Select placeholder='Select Door' onChange={handleChange}>
-                                {
-                                (optionList !== undefined) ?
-                                    optionList.map((item) => (
-                                        <option key={item.door_no} value={item.door_name}>
-                                            {item.door_name}
-                                        </option>
-                                    )):<></>
-                                }
-                            </Form.Select>
-                        </FloatingLabel>
+                    {
+                        (optionList !== undefined)?
+                            (optionList.length > 0)?
+                                <FloatingLabel label="Door">
+                                <Form.Select placeholder='Select Door' onChange={handleChange}>
+                                    {
+                                        optionList.map((item) => (
+                                            <option key={item.door_no} value={item.door_name}>
+                                                {item.door_name}
+                                            </option>
+                                        ))
+                                    }
+                                </Form.Select>
+                                </FloatingLabel>
+                            :<p style={colorStyle}>No Doors To display for this floor</p>
+                        :<></>  
+                    }
+                        
                 </div>
                 <div className='right-panel box'>
                     <Form>
