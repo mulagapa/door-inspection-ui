@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import axios from "axios";
 
 export const Register = () => {
     const [username, setUsername] = useState('');
@@ -6,13 +7,31 @@ export const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        console.log(username);
-        console.log(email);
-        console.log(password);
-        console.log(confirmPass);
-    }
+        if (password !== confirmPass) {
+          console.error("Passwords do not match");
+        } else {
+          const newUser = { username, email, password };
+          try {
+            const config = {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            };
+            const body = JSON.stringify(newUser);
+            const res = await axios.post(
+              "http://127.0.0.1:5000/api/lockshop/register",
+              body,
+              config
+            );
+            const data = await res.json ();
+            console.log ("Registration status", data);
+          } catch (err) {
+            console.error(err.response.data);
+          }
+        }
+      };
 
     return (
         <>
