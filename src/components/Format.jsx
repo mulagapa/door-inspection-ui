@@ -25,12 +25,16 @@ import DoorFrame from './DoorFrame';
 import DoorFirerating from './DoorFireRating';
 import DoorCategory from './DoorCategory';
 import DoorPowertransfer from './DoorPowerTransfer';
+import DoorDeficiencies from './DoorDeficiencies';
 import Button from '@mui/material/Button';
 import '../HomePage.css'
+import '../EditPage.css'
 import { ButtonBase, ButtonGroup } from '@mui/material';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import ExcelToCSV from './ExcelToCSV';
+import DoorDeficienciesTable from './DoorDeficiencyTable'
+
 
 const Format = (props) => {
 
@@ -152,6 +156,11 @@ const Format = (props) => {
         attributes["power_transfer_id"] = newValue
         console.log(newValue, attributes["power_transfer_id"])
     }
+
+    const handleDeficiency = (newValue) => {
+        attributes["deficiencies_id"] = newValue
+        console.log(newValue, attributes["deficiencies_id"])
+    }
     
     const handleSubmitCB = () => {
         axios.put('http://127.0.0.1:5000/api/lockshop/door', {
@@ -217,6 +226,8 @@ const Format = (props) => {
                                 </div>
                             </div>
                             <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>
+                            <h2 style={{ color: 'white'}}>Door Deficiencies</h2>
+                            <DoorDeficienciesTable door_no = {attributes["door_no"]}/>
                         </div>:<></>
                 }
             </>

@@ -44,7 +44,6 @@ const Door = (props) =>{
     };
 
     const fetchData = () => {
-        console.log('JWT token is ', cookies.get('jwt_token'));
         axios
             .get('http://127.0.0.1:5000/api/lockshop/door', {
                 params: {

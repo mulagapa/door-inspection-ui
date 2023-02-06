@@ -12,7 +12,8 @@ const ExcelToCSV = () => {
     reader.onload = (e) => {
       const data = new Uint8Array(e.target.result);
       const workbook = read(data, { type: "array" });
-      const firstSheetName = workbook.SheetNames[0];
+      console.log('workbook : ', workbook)
+      const firstSheetName = workbook.SheetNames[1];
       const worksheet = workbook.Sheets[firstSheetName];
       const csv = utils.sheet_to_csv(worksheet);
 
