@@ -223,7 +223,6 @@ const Format = (props) => {
                                     <DoorFirerating firerating_id = {attributes["fire_rating_id"]} handler = {handleFireRatingCB}/>
                                     <DoorCategory category_id = {attributes["category_id"]} handler = {handleCategoryCB}/>
                                     <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>
-                                    <DoorDeficiencies deficiencies_id = {attributes["deficiencies_id"]} handler= {handleDeficiency}/>
                                 </div>
                             </div>
                             <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>

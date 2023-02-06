@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { autocompleteClasses } from '@mui/material';
 
 const DoorDeficienciesTable = (props) => {
-    const [select, setSelected] = useState(() => "Select Deficiency Map");
+    const [selectDeficiency, setSelecteDeficiency] = useState(1);
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
     const [optionDeficiencyList, setOptionDeficiencyList] = useState([])
@@ -77,11 +77,25 @@ const DoorDeficienciesTable = (props) => {
         .catch((error) => console.log(error));
     }
 
-    function addNewDeficiency() {
-        setOptionList()
+    const handleAddDeficiency = (event) => {
+        event.preventDefault();
+        console.log('chosen deficiency to add :', selectDeficiency);
+        console.log('door number is :', props.door_no)
+        axios.post('http://127.0.0.1:5000/api/lockshop/doordeficiencymap', {
+            params: {
+                "door_no": props.door_no,
+                "deficiency_id": selectDeficiency
+            }
+        }).then((response)=>{
+            console.log('Deficiency added successfully');
+            fetchDataId();
+        })
+        .catch((error) => {
+            console.log('Deficiency could not be added', error);
+            alert('Deficiency could not be added!');
+        })
     }
 
-    
     return (
         <>
             <div className="container">
@@ -97,7 +111,7 @@ const DoorDeficienciesTable = (props) => {
                     <tbody>
                         {optionList.map((row, index) => (
                         <tr>
-                            <td style={table_style}>{index}</td>
+                            <td style={table_style}>{index+1}</td>
                             <td style={table_style}>{row['deficiency_description']}</td>
                             <td style={table_style}>{row['deficiency_type']}</td>
                             <td style={table_style}><button onClick={() => removeDeficiency(row['id'])}>Delete</button></td>
@@ -105,17 +119,19 @@ const DoorDeficienciesTable = (props) => {
                         ))}
                     </tbody>
                 </table>
-                <button onClick = {() => {}}>Add Deficiency</button>
-                <select value={1}>
-                {
-                    (optionDeficiencyList !== undefined) ?
-                        optionDeficiencyList.map((item) => (
-                            <option key={item.id} value={item.id}>
-                                {item.description}
-                            </option>
-                        )):<></>
-                }
-                </select>
+                <form onSubmit={handleAddDeficiency}>
+                    <select value={selectDeficiency} onChange={(event) => setSelecteDeficiency(event.target.value)}>
+                    {
+                        (optionDeficiencyList !== undefined) ?
+                            optionDeficiencyList.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.description}
+                                </option>
+                            )):<></>
+                    }
+                    </select>
+                    <button type="submit">Add Deficiency</button>
+                </form>
             </div>
         </>
     );
