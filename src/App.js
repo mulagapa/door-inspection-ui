@@ -20,7 +20,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" exact element={<Home/>} />
             {/* <Route path="/buildings"  element = {<Building/>} /> */}
             <Route path="/form"  element = {<Format/>} />
             <Route path="/login" element = {<Login/>} />

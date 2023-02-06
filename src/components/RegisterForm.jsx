@@ -1,18 +1,36 @@
 import React, {useState} from "react";
 import axios from "axios";
+import { Navigate, Route, useNavigate } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Typography } from "@material-ui/core";
+import TextField from '@material-ui/core/TextField';
+import { Login } from "./LoginForm";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 
 export const Register = () => {
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    
     const [password, setPassword] = useState('');
-    const [confirmPass, setConfirmPass] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const classes = useStyles ();
+    const navigate = useNavigate();
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const handleSubmit = async e => {
         e.preventDefault();
-        if (password !== confirmPass) {
+        if (password !== confirmPassword) {
           console.error("Passwords do not match");
         } else {
-          const newUser = { username, email, password };
+          const newUser = { email, password };
           try {
             const config = {
               headers: {
@@ -25,31 +43,58 @@ export const Register = () => {
               body,
               config
             );
-            const data = await res.json ();
-            console.log ("Registration status", data);
+            console.log (res.data);
+            setMessage(res.data.result.message);
+            await sleep (3000);
+            //const data = await res.json ();
+            if (res.data.code === 200) {
+              console.log ("success registeration");
+            } else {
+              console.log ("Fail registeration");
+            }
+
+           navigate("/login");
+          
           } catch (err) {
-            console.error(err.response.data);
+            console.error("error occured in register", err);
           }
         }
       };
 
-    return (
-        <>
-            <div class="container">
-                <h2>Reister User</h2>
-                <form onSubmit={handleSubmit}>
-                    <label for="username">Username</label><br/>
-                    <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Username" id="username" name="username"/><br/>
-                    <label for="email">Email</label><br/>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" id="email" name="email"/><br/>
-                    <label for="password">Password</label><br/>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="******" id="password" name="password"/><br/>
-                    <label for="confirmPass">Confirm Password</label><br/>
-                    <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="confirmPass" placeholder="******" id="confirmPass" name="confirmPass"/><br/><br/>
-                    <button type="submit">Register User</button>
-                </form><br/>
-                Already have an account?<a href="./login">Log In</a><br/>
+    return (<>{
+      message ==''?
+      <div style={{display:"flex", flexDirection:"column"}}>
+        <form className={classes.root}  noValidate autoComplete="off">
+            <div>
+              <TextField
+                id="email"
+                label="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <TextField
+                id="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
             </div>
-        </>
-    )
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Register
+            </Button>
+      </form>
+    </div>:
+        <Typography variant="h5" gutterBottom>
+                  {message + " Redirecting to Login"}
+        </Typography>
+    }</>
+    );
 }
