@@ -63,30 +63,37 @@ export const Register = () => {
 
     return (<>{
       message ==''?
-      <div style={{display:"flex", flexDirection:"column"}}>
+      <div style={{margin:"100px"}}>
         <form className={classes.root}  noValidate autoComplete="off">
             <div>
               <TextField
                 id="email"
                 label="email"
                 value={email}
+                variant="outlined"
                 onChange={(event) => setEmail(event.target.value)}
               />
+              </div>
+              <div>
               <TextField
                 id="password"
                 label="Password"
                 type="password"
+                variant="outlined"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
+              
               <TextField
                 id="confirmPassword"
                 label="Confirm Password"
                 type="password"
+                variant="outlined"
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
               />
             </div>
+        
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Register
             </Button>
