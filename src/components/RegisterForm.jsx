@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import { Navigate, Route, useNavigate } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, Typography } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import { Login } from "./LoginForm";
 
@@ -11,7 +11,30 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '25ch',
+    }, card: {
+      maxWidth: 600,
+      margin: 'auto',
+      textAlign: 'center',
+      marginTop: theme.spacing(5),
+      paddingBottom: theme.spacing(2)
     },
+    error: {
+      verticalAlign: 'middle'
+    },
+    title: {
+      marginTop: theme.spacing(2),
+      color: theme.palette.openTitle
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: '25ch',
+    },
+    centerConetent:{height:'100%',display: 'flex', alignItems: 'center', justifyContent: 'center' },
+    submit: {
+      margin: 'auto',
+      marginBottom: theme.spacing(2)
+    }
   },
 }));
 
@@ -61,47 +84,50 @@ export const Register = () => {
         }
       };
 
-    return (<>{
-      message ==''?
-      <div style={{margin:"100px"}}>
-        <form className={classes.root}  noValidate autoComplete="off">
-            <div>
+    return (<div style={{ height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{
+      message === ''?
+      <div>
+        <Card styles={{ width:'500px'}} className={classes.card} >
+        <CardContent>
+          <Typography variant="h6" style={{marginTop:'100px'}}>
+            Register User
+          </Typography>
               <TextField
                 id="email"
-                label="email"
+                label="email*"
                 value={email}
-                variant="outlined"
+                variant="filled"
+                className={classes.textField}
                 onChange={(event) => setEmail(event.target.value)}
-              />
-              </div>
-              <div>
+              /><br/>
               <TextField
                 id="password"
-                label="Password"
+                label="Password*"
                 type="password"
-                variant="outlined"
+                variant="filled"
                 value={password}
+                className={classes.textField}
                 onChange={(event) => setPassword(event.target.value)}
-              />
+              /><br/>
               
               <TextField
                 id="confirmPassword"
-                label="Confirm Password"
+                label="Confirm Password*"
                 type="password"
-                variant="outlined"
+                variant="filled"
                 value={confirmPassword}
+                className={classes.textField}
                 onChange={(event) => setConfirmPassword(event.target.value)}
               />
-            </div>
-        
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Register
-            </Button>
-      </form>
+        </CardContent>
+        <CardActions>
+          <Button color="primary" variant="contained" onClick={handleSubmit} className={classes.submit}>Submit</Button>
+        </CardActions>
+      </Card>
     </div>:
         <Typography variant="h5" gutterBottom>
                   {message + " Redirecting to Login"}
         </Typography>
-    }</>
+    }</div>
     );
 }

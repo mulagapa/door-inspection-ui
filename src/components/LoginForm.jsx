@@ -11,10 +11,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: '25ch',
-      marginTop: 100
-    },
+      width: '25ch'
   },
+}
 }));
 
 
@@ -58,29 +57,39 @@ export const Login = (props) => {
 
     return (
         <>
-        <form className={classes.root} noValidate autoComplete="off">
-        <div>
+        {/* <form className={classes.root} noValidate autoComplete="off"> */}
+        <div className={classes.root} 
+              style={{ display: 'flex', 
+               flexDirection: 'column', 
+               flexDirection: 'column', 
+               alignItems: 'center', 
+               justifyContent: 'center',
+               height:'75vh'
+              }}>
           <TextField
             id="email"
-            label="email"
+            label="email *"
             value={email}
+            variant="filled"
             onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
             id="password"
-            label="Password"
+            label="Password *"
             type="password"
             value={password}
+            variant="filled"
             onChange={(event) => setPassword(event.target.value)}
           />
-        </div>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        {/* </form> */}
+        <Button variant="contained" color="primary" style={{ marginTop:'10px', width:'200px'}} onClick={handleSubmit}>
           Log In
         </Button>
-      </form>
-        
-        <Button variant="contained" color="secondary" onClick={handleForgotClick}>Forgot Password?</Button>
-        <Button variant="contained" color="secondary" onClick={handleRegisterClick}>Register Here</Button>
+        <span>
+        <Button variant="contained" color="secondary" style={{ marginTop:'30px', width:'200px'}} onClick={handleForgotClick}>Forgot Password?</Button>
+        <Button variant="contained" color="secondary" style={{ marginTop:'30px', marginLeft:'30px', width:'200px'}} onClick={handleRegisterClick}>Register Here</Button>
+        </span>
+        </div>
         </>
     )
 }
