@@ -52,37 +52,38 @@ export const Register = () => {
         e.preventDefault();
         if (password !== confirmPassword) {
           console.error("Passwords do not match");
-        } else {
-          const newUser = { email, password };
-          try {
-            const config = {
-              headers: {
-                "Content-Type": "application/json"
-              }
-            };
-            const body = JSON.stringify(newUser);
-            const res = await axios.post(
-              "http://127.0.0.1:5000/api/lockshop/register",
-              body,
-              config
-            );
-            console.log (res.data);
-            setMessage(res.data.result.message);
-            await sleep (3000);
-            //const data = await res.json ();
-            if (res.data.code === 200) {
-              console.log ("success registeration");
-            } else {
-              console.log ("Fail registeration");
-            }
-
-           navigate("/login");
-          
-          } catch (err) {
-            console.error("error occured in register", err);
-          }
+          alert ("Passwords Don't match retry");
+          return;
         }
-      };
+        const newUser = { email, password };
+        try {
+          const config = {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          };
+          const body = JSON.stringify(newUser);
+          const res = await axios.post(
+            "http://127.0.0.1:5000/api/lockshop/register",
+            body,
+            config
+          );
+          console.log (res.data);
+          setMessage(res.data.result.message);
+          await sleep (3000);
+          //const data = await res.json ();
+          if (res.data.code === 200) {
+            console.log ("success registeration");
+          } else {
+            console.log ("Fail registeration");
+          }
+
+          navigate("/login");
+        
+        } catch (err) {
+          console.error("error occured in register", err);
+        }
+  };
 
     return (<div style={{ height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{
       message === ''?

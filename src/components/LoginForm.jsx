@@ -32,7 +32,7 @@ export const Login = (props) => {
         console.log(email);
         console.log(password);
         axios.post('http://127.0.0.1:5000/api/lockshop/login', {
-            "autherization": {"email": email ,"password" : password}
+            "authorization": {"email": email ,"password" : password}
         }).then(response => {
             // Set cookie with expiry time 30 minutes
             cookies.set('jwt_token', response.data.result.token, { path: '/', expires: new Date(Date.now()+30*60*1000)});

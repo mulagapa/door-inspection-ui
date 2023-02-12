@@ -5,6 +5,7 @@ import uscLogo from '../common/uscLogo.json';
 import '../Header.css'
 import Cookies from 'universal-cookie';
 import { Logout } from './Logout';
+import { UpdateUserPassword } from './UpdateUser';
 
 const Header = () => {
 
@@ -33,8 +34,11 @@ const Header = () => {
         }
         
         {
-          (cookies.get('jwt_token'))?
-          <Navbar.Brand onClick={Logout} href="./">Logout</Navbar.Brand>:
+          (cookies.get('jwt_token'))?(<>
+          <Navbar.Brand onClick={Logout} href="./">Logout</Navbar.Brand>
+          <Navbar.Brand href="./update">Update</Navbar.Brand>
+          </>
+          ):
           <Navbar.Brand href="./login">
             Login
           </Navbar.Brand>
