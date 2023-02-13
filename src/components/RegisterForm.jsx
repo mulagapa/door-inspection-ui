@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Card, CardActions, CardContent, Typography } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import { Login } from "./LoginForm";
+import Cookies from "universal-cookie";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,9 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export const Register = () => {
+
     const [email, setEmail] = useState('');
-    
+    const cookies = new Cookies();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -79,7 +82,9 @@ export const Register = () => {
           }
 
           navigate("/login");
-        
+          
+          cookies.remove("jwt_token")
+          window.location.reload();
         } catch (err) {
           console.error("error occured in register", err);
         }

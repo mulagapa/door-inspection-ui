@@ -40,7 +40,7 @@ export const Login = (props) => {
             ((response.data.result.message).slice(-5) == "True}") ?
             navigate("/update"):
             navigate("/form");
-            // window.location.reload();
+            window.location.reload();
         }).catch(error => {
             console.log('Error in Login : ', error)
             alert('Login Failed! Incorrect email or password.')
