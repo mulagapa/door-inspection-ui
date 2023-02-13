@@ -36,9 +36,11 @@ export const Login = (props) => {
         }).then(response => {
             // Set cookie with expiry time 30 minutes
             cookies.set('jwt_token', response.data.result.token, { path: '/', expires: new Date(Date.now()+30*60*1000)});
-            console.log("jwt cookie is :", cookies.get('jwt_token'))
+            // console.log("jwt cookie is :", cookies.get('jwt_token'))
+            ((response.data.result.message).slice(-5) == "True}") ?
+            navigate("/update"):
             navigate("/form");
-            window.location.reload();
+            // window.location.reload();
         }).catch(error => {
             console.log('Error in Login : ', error)
             alert('Login Failed! Incorrect email or password.')
