@@ -48,8 +48,9 @@ const Header = () => {
           </Navbar.Brand>
         }
         {
-          (cookies.get('jwt_token') &&
-            parseJwt(cookies.get('jwt_token')).email === 'mulagapa@usc.edu') ?
+          (cookies.get('jwt_token') &&(
+            parseJwt(cookies.get('jwt_token')).email === 'mulagapa@usc.edu' || parseJwt(cookies.get('jwt_token')).email === 'komma@usc.edu' || 
+            parseJwt(cookies.get('jwt_token')).email === 'vibhavsh@usc.edu')) ?
             <Navbar.Brand href="./register">
               Register
             </Navbar.Brand>:
