@@ -25,6 +25,8 @@ import DoorFrame from './DoorFrame';
 import DoorFirerating from './DoorFireRating';
 import DoorCategory from './DoorCategory';
 import DoorPowertransfer from './DoorPowerTransfer';
+import DoorMaterial from './DoorMaterial';
+import DoorSize from './DoorSize';
 import DoorDeficiencies from './DoorDeficiencies';
 import Button from '@mui/material/Button';
 import '../HomePage.css'
@@ -68,7 +70,6 @@ const Format = (props) => {
     }
     const handleComplianceCB = (newValue) => {
         let val = {"compliance_id": newValue}
-        //setAttributes (...attributes, astragal_id=new)
         setAttributes (attributes => ({...attributes, ...val}))
         console.log(newValue, attributes["compliance_id"])
     }
@@ -144,6 +145,14 @@ const Format = (props) => {
         attributes["frame_id"] = newValue
         console.log(newValue, attributes["frame_id"])
     }
+    const handleDoorMaterial = (newValue) => {
+        attributes["door_material_id"] = newValue
+        console.log(newValue, attributes["door_material_id"])
+    }
+    const handleDoorSize = (newValue) => {
+        attributes["size_id"] = newValue
+        console.log(newValue, attributes["size_id"])
+    }
     const handleFireRatingCB = (newValue) => {
         attributes["fire_rating_id"] = newValue
         console.log(newValue, attributes["fire_rating_id"])
@@ -202,6 +211,7 @@ const Format = (props) => {
                                     <DoorAstragal astragal_id = {attributes["astragal_id"]} handler = {handleAstragalCB}/>
                                     <DoorStop stop_id = {attributes["stop_id"]} handler = {handleStopCB}/>
                                     <DoorMagholder magholder_id = {attributes["mag_holder_id"]} handler = {handleMagHolderCB}/>
+                                    <DoorSize size_id = {attributes["size_id"]} handler = {handleDoorSize}/>
                                     <DoorFlushbolt flushbolt_id = {attributes["flush_bolt_id"]} handler = {handleFlushBoltCB}/>
                                     <DoorCoordinator coordinator_id = {attributes["coordinator_id"]} handler = {handleCoordinatorCB}/>
                                     <DoorCloser closer_id = {attributes["closer_id"]} handler = {handleCloserCB}/>
@@ -220,6 +230,7 @@ const Format = (props) => {
                                     <DoorTransom transom_id = {attributes["transom_id"]} handler = {handleTransomCB}/>
                                     <DoorType type_id = {attributes["type_id"]} handler = {handleTypeCB}/>
                                     <DoorFrame frame_id = {attributes["frame_id"]} handler = {handleFrameCB}/>
+                                    <DoorMaterial door_material_id = {attributes["door_material_id"]} handler = {handleDoorMaterial}/>
                                     <DoorFirerating firerating_id = {attributes["fire_rating_id"]} handler = {handleFireRatingCB}/>
                                     <DoorCategory category_id = {attributes["category_id"]} handler = {handleCategoryCB}/>
                                     <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>

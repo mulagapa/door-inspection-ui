@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Button, FloatingLabel } from 'react-bootstrap';
@@ -53,15 +53,20 @@ const DoorDeficienciesTable = (props) => {
             }
         })
         .catch((error) => console.log(error));
-    };
+    }
 
     useEffect(() => {
+        setUpdate(true);
+    }, [props])
+
+    useEffect(() => {
+        console.log('It is getting called when door is updated\n');
         if (update === true) {
             fetchDeficiencyData();
             fetchDataId();
             setUpdate(false);
         }
-    })
+    }, [update])
 
 
     function removeDeficiency(id) {
