@@ -6,16 +6,16 @@ import { Button, FloatingLabel } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
 
-const DoorContinuoushinge = (props) => {
-    const [select, setSelected] = useState(() => "Select continuoushinge");
+const DoorSweep = (props) => {
+    const [select, setSelected] = useState(() => "Select Sweep");
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
-    const continuoushingeref = useRef(null);
+    const sweeperef = useRef(null);
 
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
+            .get('http://127.0.0.1:5000/api/lockshop/doorsweep', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,9 +33,9 @@ const DoorContinuoushinge = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
+        .get('http://127.0.0.1:5000/api/lockshop/doorsweep', {
             params: {
-                "id": props.continuoushinge_id
+                "id": props.sweep_id
             }
         })
         .then((response) => {
@@ -56,16 +56,16 @@ const DoorContinuoushinge = (props) => {
             fetchData();
             setUpdate(false);
         }
-    }, [props.continuoushinge_id])
+    }, [props.sweep_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
-        let continuoushingeName = continuoushingeref.current.value
+        let sweepName = sweeperef.current.value
         
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
-            "name": continuoushingeName,
+        axios.post('http://127.0.0.1:5000/api/lockshop/doorsweep', {
+            "name": sweepName,
         }).then(response => {
-            continuoushingeref.current.value = "";
+            sweeperef.current.value = "";
             setUpdate(true)
         })
 
@@ -81,7 +81,7 @@ const DoorContinuoushinge = (props) => {
     
     return (
         <>
-            <FloatingLabel label="Continuous Hinge">
+            <FloatingLabel label="Sweep">
                 <Form.Select value={select} onChange={handleChange}>
                     {
                     (optionList !== undefined) ?
@@ -97,4 +97,4 @@ const DoorContinuoushinge = (props) => {
     );
 }
 
-export default DoorContinuoushinge
+export default DoorSweep

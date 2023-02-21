@@ -56,7 +56,7 @@ const DoorStop = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.stop_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

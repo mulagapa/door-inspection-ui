@@ -1,21 +1,20 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Button, FloatingLabel } from 'react-bootstrap';
+import { FloatingLabel } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
 
-const DoorContinuoushinge = (props) => {
-    const [select, setSelected] = useState(() => "Select continuoushinge");
+const DoorSeal = (props) => {
+    const [select, setSelected] = useState(() => "Select Seal");
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
-    const continuoushingeref = useRef(null);
+    const sealref = useRef(null);
 
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
+            .get('http://127.0.0.1:5000/api/lockshop/doorseal', {
             })
             .then((response) => {
                 const { data } = response;
@@ -32,16 +31,17 @@ const DoorContinuoushinge = (props) => {
     };
 
     const fetchDataId = () => {
+        console.log("props.seal_id ", props.seal_id)
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
+        .get('http://127.0.0.1:5000/api/lockshop/doorseal', {
             params: {
-                "id": props.continuoushinge_id
+                "id": props.seal_id
             }
         })
         .then((response) => {
             const { data } = response;
             if (response.status === 200) {
-                setSelected (data.result.data.name)
+                setSelected (data.result.data.type)
             } else {
                 setSelected ("None")
             }
@@ -56,16 +56,16 @@ const DoorContinuoushinge = (props) => {
             fetchData();
             setUpdate(false);
         }
-    }, [props.continuoushinge_id])
+    },[props.seal_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
-        let continuoushingeName = continuoushingeref.current.value
+        let sealName = sealref.current.value
         
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
-            "name": continuoushingeName,
+        axios.post('http://127.0.0.1:5000/api/lockshop/doorseal', {
+            "type": sealName,
         }).then(response => {
-            continuoushingeref.current.value = "";
+            sealref.current.value = "";
             setUpdate(true)
         })
 
@@ -74,20 +74,20 @@ const DoorContinuoushinge = (props) => {
     const handleChange = (event) => {
         setSelected (event.target.value)
         for (let id in optionList) {
-            if (optionList[id]["name"] === event.target.value)
+            if (optionList[id]["type"] === event.target.value)
                 props.handler (optionList[id]["id"])
         }
     }
     
     return (
         <>
-            <FloatingLabel label="Continuous Hinge">
+            <FloatingLabel label="Seal System">
                 <Form.Select value={select} onChange={handleChange}>
                     {
                     (optionList !== undefined) ?
                         optionList.map((item) => (
-                            <option key={item.id} value={item.name}>
-                                {item.name}
+                            <option key={item.id} value={item.type}>
+                                {item.type}
                             </option>
                         )):<></>
                     }
@@ -97,4 +97,4 @@ const DoorContinuoushinge = (props) => {
     );
 }
 
-export default DoorContinuoushinge
+export default DoorSeal

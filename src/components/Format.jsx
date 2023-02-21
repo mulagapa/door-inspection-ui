@@ -17,6 +17,7 @@ import DoorStrike from './DoorStrike';
 import DoorElectriclockset from './DoorElectricLockSet';
 import DoorLockset from './DoorLockset';
 import DoorPivot from './DoorPivot';
+import DoorSeal from './DoorSeal';
 import DoorHinge from './DoorHinge';
 import DoorContinuoushinge from './DoorContinousHinge';
 import DoorTransom from './DoorTransom';
@@ -27,6 +28,11 @@ import DoorCategory from './DoorCategory';
 import DoorPowertransfer from './DoorPowerTransfer';
 import DoorMaterial from './DoorMaterial';
 import DoorSize from './DoorSize';
+import VisionLite from './VisionLite';
+import SideLite from './SideLite';
+import Silencer from './Silencer';
+import DoorHingeSize from './DoorHingeSize';
+import DoorSweep from './DoorSweeps';
 import DoorDeficiencies from './DoorDeficiencies';
 import Button from '@mui/material/Button';
 import '../HomePage.css'
@@ -145,7 +151,7 @@ const Format = (props) => {
         attributes["frame_id"] = newValue
         console.log(newValue, attributes["frame_id"])
     }
-    const handleDoorMaterial = (newValue) => {
+    const handleDoorMaterialCB = (newValue) => {
         attributes["door_material_id"] = newValue
         console.log(newValue, attributes["door_material_id"])
     }
@@ -165,12 +171,31 @@ const Format = (props) => {
         attributes["power_transfer_id"] = newValue
         console.log(newValue, attributes["power_transfer_id"])
     }
-
-    const handleDeficiency = (newValue) => {
-        attributes["deficiencies_id"] = newValue
-        console.log(newValue, attributes["deficiencies_id"])
+    const handleVisionLiteCB = (newValue) => {
+        attributes["vision_lite"] = newValue
+        console.log(newValue, attributes["vision_lite"])
     }
-    
+    const handleSideLiteCB = (newValue) => {
+        attributes["side_lite"] = newValue
+        console.log(newValue, attributes["side_lite"])
+    }
+    const handleHingeSizeCB = (newValue) => {
+        attributes["hinge_size_id"] = newValue
+        console.log(newValue, attributes["hinge_size_id"])
+    }
+    const handleSilencerCB = (newValue) => {
+        attributes["silencer"] = newValue
+        console.log(newValue, attributes["hinge_size_id"])
+    }
+    const handleSealSystemCB = (newValue) => {
+        attributes["seal_id"] = newValue
+        console.log(newValue, attributes["seal_id"])
+    }
+    const handleDoorSweepCB = (newValue) => {
+        console.log('old sweep ', attributes["sweep_id"])
+        attributes["sweep_id"] = newValue
+        console.log(newValue, attributes["sweep_id"])
+    }
     const handleSubmitCB = () => {
         axios.put('http://127.0.0.1:5000/api/lockshop/door', {
             "data": attributes
@@ -188,7 +213,7 @@ const Format = (props) => {
             (cookies.get('jwt_token'))?
             <>
                 <h1 className='title'> Door Inspector </h1> 
-                <ExcelToCSV></ExcelToCSV>
+                {/* <ExcelToCSV></ExcelToCSV> */}
                 <div className='TopWidth' >
                     <Building setFloorActive = {handleFloorCallback}/>
                     {
@@ -220,22 +245,29 @@ const Format = (props) => {
                                     <DoorTrim trim_id = {attributes["trim_id"]} handler = {handleTrimCB}/>
                                     <DoorExitdevice exitdevice_id = {attributes["exit_device_id"]} handler = {handleExitDeviceCB}/>
                                     <DoorStrike strike_id = {attributes["strike_id"]} handler = {handleStrikeCB}/>
+                                    <SideLite side_lite = {attributes["side_lite"]} handler = {handleSideLiteCB}/>
+                                    <Silencer silencer = {attributes["silencer"]} handler = {handleSilencerCB}/>
+                                    <DoorSweep sweep_id = {attributes["sweep_id"]} handler = {handleDoorSweepCB}/>
                                 </div>
                                 <div className='right-panel box'>
                                     <DoorElectriclockset electriclockset_id = {attributes["electric_lockset_id"]} handler = {handleEletricLockSetCB}/>
                                     <DoorLockset lockset_id = {attributes["lockset_id"]} handler = {handleLockSetCB}/>
                                     <DoorPivot pivot_id = {attributes["pivot_id"]} handler = {handlePivotCB}/>
                                     <DoorHinge hinge_id = {attributes["hinge_id"]} handler = {handleHingeCB}/>
+                                    <DoorHingeSize size_id = {attributes["hinge_size_id"]} handler = {handleHingeSizeCB}/>
                                     <DoorContinuoushinge continuoushinge_id = {attributes["continous_hinge_id"]} handler = {handleContinuousHingeCB}/>
                                     <DoorTransom transom_id = {attributes["transom_id"]} handler = {handleTransomCB}/>
                                     <DoorType type_id = {attributes["type_id"]} handler = {handleTypeCB}/>
                                     <DoorFrame frame_id = {attributes["frame_id"]} handler = {handleFrameCB}/>
-                                    <DoorMaterial door_material_id = {attributes["door_material_id"]} handler = {handleDoorMaterial}/>
+                                    <DoorMaterial door_material_id = {attributes["door_material_id"]} handler = {handleDoorMaterialCB}/>
                                     <DoorFirerating firerating_id = {attributes["fire_rating_id"]} handler = {handleFireRatingCB}/>
                                     <DoorCategory category_id = {attributes["category_id"]} handler = {handleCategoryCB}/>
+                                    <DoorSeal seal_id = {attributes["seal_id"]} handler = {handleSealSystemCB}/>
                                     <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>
+                                    <VisionLite vision_lite_val={attributes["vision_lite"]} handler = {handleVisionLiteCB}/>
                                 </div>
                             </div>
+                            <br />
                             <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>
                             <h2 style={{ color: 'white'}}>Door Deficiencies</h2>
                             <DoorDeficienciesTable door_no = {attributes["door_no"]}/>

@@ -1,21 +1,20 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Button, FloatingLabel } from 'react-bootstrap';
+import { FloatingLabel } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
 
-const DoorContinuoushinge = (props) => {
-    const [select, setSelected] = useState(() => "Select continuoushinge");
+const DoorHingeSize = (props) => {
+    const [select, setSelected] = useState(() => "Select Door Hinge Size");
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
-    const continuoushingeref = useRef(null);
+    const sizeref = useRef(null);
 
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
+            .get('http://127.0.0.1:5000/api/lockshop/doorhingesize', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,15 +32,15 @@ const DoorContinuoushinge = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
+        .get('http://127.0.0.1:5000/api/lockshop/doorhingesize', {
             params: {
-                "id": props.continuoushinge_id
+                "id": props.size_id
             }
         })
         .then((response) => {
             const { data } = response;
             if (response.status === 200) {
-                setSelected (data.result.data.name)
+                setSelected (data.result.data.size)
             } else {
                 setSelected ("None")
             }
@@ -56,16 +55,16 @@ const DoorContinuoushinge = (props) => {
             fetchData();
             setUpdate(false);
         }
-    }, [props.continuoushinge_id])
+    })
 
-    const addBuilding = (e) => {
+    const addDoorSize = (e) => {
         e.preventDefault()
-        let continuoushingeName = continuoushingeref.current.value
+        let doorsize = sizeref.current.value
         
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorcontinuoushinge', {
-            "name": continuoushingeName,
+        axios.post('http://127.0.0.1:5000/api/lockshop/doorhingesize', {
+            "size": doorsize,
         }).then(response => {
-            continuoushingeref.current.value = "";
+            sizeref.current.value = "";
             setUpdate(true)
         })
 
@@ -74,20 +73,22 @@ const DoorContinuoushinge = (props) => {
     const handleChange = (event) => {
         setSelected (event.target.value)
         for (let id in optionList) {
-            if (optionList[id]["name"] === event.target.value)
+            if (optionList[id]["size"] === event.target.value)
                 props.handler (optionList[id]["id"])
         }
     }
-    
+    useEffect(() => {
+        console.log('optionList:', optionList)
+    }, [optionList])
     return (
         <>
-            <FloatingLabel label="Continuous Hinge">
+            <FloatingLabel label="Door Size">
                 <Form.Select value={select} onChange={handleChange}>
                     {
                     (optionList !== undefined) ?
                         optionList.map((item) => (
-                            <option key={item.id} value={item.name}>
-                                {item.name}
+                            <option key={item.id} value={item.size}>
+                                {item.size}
                             </option>
                         )):<></>
                     }
@@ -97,4 +98,4 @@ const DoorContinuoushinge = (props) => {
     );
 }
 
-export default DoorContinuoushinge
+export default DoorHingeSize

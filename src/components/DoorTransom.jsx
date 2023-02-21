@@ -56,7 +56,7 @@ const DoorTransom = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    },[props.transom_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

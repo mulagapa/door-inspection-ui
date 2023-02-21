@@ -57,7 +57,7 @@ const DoorTrim= (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.trim_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

@@ -56,7 +56,7 @@ const DoorCoordinator = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.coordinator_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

@@ -56,7 +56,7 @@ const DoorDelayegress = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.delayegress_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

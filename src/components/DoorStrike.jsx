@@ -56,7 +56,7 @@ const DoorStrike = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.strike_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

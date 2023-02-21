@@ -56,7 +56,7 @@ const DoorPivot = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.pivot_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

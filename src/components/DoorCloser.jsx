@@ -56,7 +56,7 @@ const DoorCloser = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.closer_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

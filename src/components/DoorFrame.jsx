@@ -56,7 +56,7 @@ const DoorFrame= (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.frame_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
