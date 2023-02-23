@@ -30,9 +30,15 @@ import DoorMaterial from './DoorMaterial';
 import DoorSize from './DoorSize';
 import VisionLite from './VisionLite';
 import SideLite from './SideLite';
+import DoorCardReader from './DoorCardReader';
+import DoorDPS from './DoorDPS';
+import DoorPowerSupply from './DoorPowerSupply'
+import DoorNotes from './DoorNotes';
 import Silencer from './Silencer';
 import DoorHingeSize from './DoorHingeSize';
 import DoorSweep from './DoorSweeps';
+import DoorAutodoorBottom from './DoorAutodoorBtm';
+import DoorThreshold from './DoorThreshold';
 import DoorDeficiencies from './DoorDeficiencies';
 import Button from '@mui/material/Button';
 import '../HomePage.css'
@@ -179,6 +185,22 @@ const Format = (props) => {
         attributes["side_lite"] = newValue
         console.log(newValue, attributes["side_lite"])
     }
+    const handlerCardReaderCB = (newValue) => {
+        attributes["card_reader"] = newValue
+        console.log(newValue, attributes["card_reader"])
+    }
+    const handlerDPSCB = (newValue) => {
+        attributes["dps"] = newValue
+        console.log(newValue, attributes["dps"])
+    }
+    const handlePowerSupply = (newValue) => {
+        attributes["power_supply"] = newValue
+        console.log(newValue, attributes["power_supply"])
+    }
+    const handlerNotesCB = (newValue) => {
+        attributes["notes"] = newValue
+        console.log(newValue, attributes["notes"])
+    }
     const handleHingeSizeCB = (newValue) => {
         attributes["hinge_size_id"] = newValue
         console.log(newValue, attributes["hinge_size_id"])
@@ -192,9 +214,16 @@ const Format = (props) => {
         console.log(newValue, attributes["seal_id"])
     }
     const handleDoorSweepCB = (newValue) => {
-        console.log('old sweep ', attributes["sweep_id"])
         attributes["sweep_id"] = newValue
         console.log(newValue, attributes["sweep_id"])
+    }
+    const handleAutoDoorBottom = (newValue) => {
+        attributes["auto_dr_btm_id"] = newValue
+        console.log(newValue, attributes["auto_dr_btm_id"])
+    }
+    const handleDoorThreshold = (newValue) => {
+        attributes["threshold_id"] = newValue
+        console.log(newValue, attributes["threshold_id"])
     }
     const handleSubmitCB = () => {
         axios.put('http://127.0.0.1:5000/api/lockshop/door', {
@@ -248,6 +277,8 @@ const Format = (props) => {
                                     <SideLite side_lite = {attributes["side_lite"]} handler = {handleSideLiteCB}/>
                                     <Silencer silencer = {attributes["silencer"]} handler = {handleSilencerCB}/>
                                     <DoorSweep sweep_id = {attributes["sweep_id"]} handler = {handleDoorSweepCB}/>
+                                    <DoorThreshold threshold_id = {attributes["threshold_id"]} handler = {handleDoorThreshold}/>
+                                    <DoorCardReader card_reader = {attributes["card_reader"]} handler = {handlerCardReaderCB}/>
                                 </div>
                                 <div className='right-panel box'>
                                     <DoorElectriclockset electriclockset_id = {attributes["electric_lockset_id"]} handler = {handleEletricLockSetCB}/>
@@ -265,8 +296,13 @@ const Format = (props) => {
                                     <DoorSeal seal_id = {attributes["seal_id"]} handler = {handleSealSystemCB}/>
                                     <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>
                                     <VisionLite vision_lite_val={attributes["vision_lite"]} handler = {handleVisionLiteCB}/>
+                                    <DoorAutodoorBottom auto_dr_btm_id= {attributes["auto_dr_btm_id"]} handler = {handleAutoDoorBottom}/>
+                                    <DoorDPS dps = {attributes["dps"]} handler = {handlerDPSCB}/>
+                                    <DoorPowerSupply power_supply = {attributes["power_supply"]} handler = {handlePowerSupply}/>
                                 </div>
                             </div>
+                            <br />
+                            <DoorNotes notes = {attributes["notes"]} handler = {handlerNotesCB}/>
                             <br />
                             <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>
                             <h2 style={{ color: 'white'}}>Door Deficiencies</h2>
