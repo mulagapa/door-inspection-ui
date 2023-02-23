@@ -62,44 +62,6 @@ const DoorNotes = (props) => {
             </div>
           </div>
     );
-
-    // if (isEditing) {
-    //     return (
-    //       <>
-    //         <FloatingLabel 
-    //             style={{ 
-    //                 display: 'flex',
-    //                 justifyContent: 'center',
-    //                 alignItems: 'center',
-    //                 backgroundColor: 'white',
-    //                 width: '75%'
-    //             }} 
-    //             label="Door Notes">
-    //             <input type="textarea" value={text} onChange={handleTextChange} />
-    //             <button onClick={handleSaveButtonClick}>Save</button>
-    //         </FloatingLabel>
-    //       </>
-    //     );
-    // }
-    // else{
-    //     return (
-    //         <>
-    //             <FloatingLabel
-    //                 style={{ 
-    //                     display: 'flex',
-    //                     justifyContent: 'center',
-    //                     alignItems: 'center',
-    //                     backgroundColor: 'white',
-    //                     width: '75%'
-    //                 }}
-    //              label="Door Notes">
-    //                 <p>{text}</p>
-    //                 <button onClick={handleEditButtonClick}>Edit</button>
-    //             </FloatingLabel>
-    //         </>
-    //     );
-    // }
-    
 }
 
 export default DoorNotes

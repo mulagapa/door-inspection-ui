@@ -39,6 +39,15 @@ import DoorHingeSize from './DoorHingeSize';
 import DoorSweep from './DoorSweeps';
 import DoorAutodoorBottom from './DoorAutodoorBtm';
 import DoorThreshold from './DoorThreshold';
+import DoorAutoOperator from './DoorAutoOperator';
+import DoorMullion from './DoorMullion'
+import DoorElectricExitDevice from './DoorElectricExitDevice';
+import DoorAOWallPlate from './DoorAOWallPlates';
+import DoorProtectionPlates from './DoorProtectionPlates';
+import DoorPushPullPlates from './DoorPushPullPlates';
+import DoorElectroMechanical from './DoorElectroMechanical';
+import DoorPIM from './DoorPIM';
+import DoorOnmiPortal from './DoorOnmiPortal';
 import DoorDeficiencies from './DoorDeficiencies';
 import Button from '@mui/material/Button';
 import '../HomePage.css'
@@ -221,10 +230,47 @@ const Format = (props) => {
         attributes["auto_dr_btm_id"] = newValue
         console.log(newValue, attributes["auto_dr_btm_id"])
     }
-    const handleDoorThreshold = (newValue) => {
+    const handleDoorThresholdCB = (newValue) => {
         attributes["threshold_id"] = newValue
         console.log(newValue, attributes["threshold_id"])
     }
+    const handlerAutoOperatorCB = (newValue) => {
+        attributes["auto_operator_id"] = newValue
+        console.log(newValue, attributes["auto_operator_id"])
+    }
+    const handlerAoWallPlate = (newValue) => {
+        attributes["ao_wall_plate_id"] = newValue
+        console.log(newValue, attributes["ao_wall_plate_id"])
+    }
+    const handleMullionCB = (newValue) => {
+        attributes["mullion"] = newValue
+        console.log(newValue, attributes["mullion"])
+    }
+    const handlerProtectionPlates = (newValue) => {
+        attributes["protection_plates"] = newValue
+        console.log(newValue, attributes["protection_plates"])
+    }
+    const handlePushPullPlatesCB = (newValue) => {
+        attributes["push_pull_plates"] = newValue
+        console.log(newValue, attributes["push_pull_plates"])
+    }
+    const handleElectroMechanicalCB = (newValue) => {
+        attributes["electro_mechanical"] = newValue
+        console.log(newValue, attributes["electro_mechanical"])
+    }
+    const handleElectricExitDeviceCB = (newValue) => {
+        attributes["electric_exit_device"] = newValue
+        console.log(newValue, attributes["electric_exit_device"])
+    }
+    const handlePIMCB = (newValue) => {
+        attributes["pim"] = newValue
+        console.log(newValue, attributes["pim"])
+    }
+    const handleOnmiPortalCB = (newValue) => {
+        attributes["onmi_portal"] = newValue
+        console.log(newValue, attributes["onmi_portal"])
+    }
+    
     const handleSubmitCB = () => {
         axios.put('http://127.0.0.1:5000/api/lockshop/door', {
             "data": attributes
@@ -269,6 +315,7 @@ const Format = (props) => {
                                     <DoorFlushbolt flushbolt_id = {attributes["flush_bolt_id"]} handler = {handleFlushBoltCB}/>
                                     <DoorCoordinator coordinator_id = {attributes["coordinator_id"]} handler = {handleCoordinatorCB}/>
                                     <DoorCloser closer_id = {attributes["closer_id"]} handler = {handleCloserCB}/>
+                                    <DoorAOWallPlate ao_wall_plate_id = {attributes["ao_wall_plate_id"]} handler = {handlerAoWallPlate}/>
                                     <DoorCylinder cylinder_id = {attributes["cylinder_id"]} handler = {handleCylinderCB}/>
                                     <DoorDelayegress delayegress_id = {attributes["delay_egress_id"]} handler = {handleDelayEgressCB}/>
                                     <DoorTrim trim_id = {attributes["trim_id"]} handler = {handleTrimCB}/>
@@ -277,8 +324,12 @@ const Format = (props) => {
                                     <SideLite side_lite = {attributes["side_lite"]} handler = {handleSideLiteCB}/>
                                     <Silencer silencer = {attributes["silencer"]} handler = {handleSilencerCB}/>
                                     <DoorSweep sweep_id = {attributes["sweep_id"]} handler = {handleDoorSweepCB}/>
-                                    <DoorThreshold threshold_id = {attributes["threshold_id"]} handler = {handleDoorThreshold}/>
+                                    <DoorThreshold threshold_id = {attributes["threshold_id"]} handler = {handleDoorThresholdCB}/>
                                     <DoorCardReader card_reader = {attributes["card_reader"]} handler = {handlerCardReaderCB}/>
+                                    <DoorMullion mullion = {attributes["mullion"]} handler = {handleMullionCB}/>
+                                    <DoorProtectionPlates protection_plates = {attributes["protection_plates"]} handler = {handlerProtectionPlates}/>
+                                    <DoorElectroMechanical electro_mechanical = {attributes["electro_mechanical"]} handler = {handleElectroMechanicalCB}/>
+                                    <DoorOnmiPortal onmi_portal = {attributes["onmi_portal"]} handler = {handleOnmiPortalCB}/>
                                 </div>
                                 <div className='right-panel box'>
                                     <DoorElectriclockset electriclockset_id = {attributes["electric_lockset_id"]} handler = {handleEletricLockSetCB}/>
@@ -293,12 +344,16 @@ const Format = (props) => {
                                     <DoorMaterial door_material_id = {attributes["door_material_id"]} handler = {handleDoorMaterialCB}/>
                                     <DoorFirerating firerating_id = {attributes["fire_rating_id"]} handler = {handleFireRatingCB}/>
                                     <DoorCategory category_id = {attributes["category_id"]} handler = {handleCategoryCB}/>
+                                    <DoorAutoOperator auto_operator_id = {attributes["auto_operator_id"]} handler = {handlerAutoOperatorCB}/>
                                     <DoorSeal seal_id = {attributes["seal_id"]} handler = {handleSealSystemCB}/>
                                     <DoorPowertransfer powertransfer_id = {attributes["power_transfer_id"]} handler = {handlePowerTransferCB}/>
                                     <VisionLite vision_lite_val={attributes["vision_lite"]} handler = {handleVisionLiteCB}/>
                                     <DoorAutodoorBottom auto_dr_btm_id= {attributes["auto_dr_btm_id"]} handler = {handleAutoDoorBottom}/>
                                     <DoorDPS dps = {attributes["dps"]} handler = {handlerDPSCB}/>
                                     <DoorPowerSupply power_supply = {attributes["power_supply"]} handler = {handlePowerSupply}/>
+                                    <DoorPushPullPlates push_pull_plates = {attributes["push_pull_plates"]} handler = {handlePushPullPlatesCB}/>
+                                    <DoorElectricExitDevice electric_exit_device = {attributes["electric_exit_device"]} handler = {handleElectricExitDeviceCB}/>
+                                    <DoorPIM pim={attributes["pim"]} handler = {handlePIMCB}/>
                                 </div>
                             </div>
                             <br />
