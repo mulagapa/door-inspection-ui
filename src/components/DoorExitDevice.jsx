@@ -56,7 +56,7 @@ const DoorExitdevice= (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.exitdevice_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

@@ -57,7 +57,7 @@ const DoorCategory = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.category_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

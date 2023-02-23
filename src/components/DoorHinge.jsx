@@ -56,7 +56,7 @@ const DoorHinge = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.hinge_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

@@ -56,7 +56,7 @@ const DoorPowertransfer = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.powertransfer_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

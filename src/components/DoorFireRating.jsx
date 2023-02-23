@@ -56,7 +56,7 @@ const DoorFirerating = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.firerating_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

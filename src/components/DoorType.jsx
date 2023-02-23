@@ -56,7 +56,7 @@ const DoorType = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.type_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

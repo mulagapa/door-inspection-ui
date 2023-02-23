@@ -56,7 +56,7 @@ const DoorFlushbolt = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    },[props.flushbolt_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

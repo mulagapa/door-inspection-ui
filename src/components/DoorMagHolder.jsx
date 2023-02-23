@@ -56,7 +56,7 @@ const DoorMagholder = (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.magholder_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
