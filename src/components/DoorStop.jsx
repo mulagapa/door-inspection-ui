@@ -74,7 +74,7 @@ const DoorStop = (props) => {
     const handleChange = (event) => {
         setSelected (event.target.value)
         for (let id in optionList) {
-            if (optionList[id]["name"] === event.target.value)
+            if (optionList[id]["type"] === event.target.value)
                 props.handler (optionList[id]["id"])
         }
     }
