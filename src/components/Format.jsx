@@ -272,6 +272,7 @@ const Format = (props) => {
     }
     
     const handleSubmitCB = () => {
+        console.log("attributes to be submitted ", attributes)
         axios.put('http://127.0.0.1:5000/api/lockshop/door', {
             "data": attributes
         }).then(response => {

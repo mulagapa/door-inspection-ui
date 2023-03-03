@@ -56,7 +56,7 @@ const DoorElectroniclockset= (props) => {
             fetchData();
             setUpdate(false);
         }
-    })
+    }, [props.electriclockset_id])
 
     const addBuilding = (e) => {
         e.preventDefault()

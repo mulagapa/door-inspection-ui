@@ -8,9 +8,15 @@ const VisionLite = (props) => {
     const [optionList, setOptionList] = useState([])
 
     const handleChange = (event) => {
-        console.log("Atrributes value : ", props.vision_lite_val)
-        setSelected (event.target.value)
-        props.handler (select)
+        console.log("Atrributes value : ", event.target.value)
+        var value_to_be_set = false
+        if(event.target.value === "true"){
+            value_to_be_set = true
+        }else{
+            value_to_be_set = false
+        }
+        setSelected (value_to_be_set)
+        props.handler (value_to_be_set)
     }
     useEffect(() => {
         setOptionList([{
