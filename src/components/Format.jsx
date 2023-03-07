@@ -361,7 +361,7 @@ const Format = (props) => {
                             <DoorNotes notes = {attributes["notes"]} handler = {handlerNotesCB}/>
                             <br />
                             <Button variant = 'contained' onClick={() => {handleSubmitCB ()}} >Submit</Button>
-                            <h2 style={{ color: 'white'}}>Door Deficiencies</h2>
+                            <h2 style={{ color: 'white', marginTop: '30px'}}>Door Deficiencies</h2>
                             <DoorDeficienciesTable door_no = {attributes["door_no"]}/>
                         </div>:<></>
                 }

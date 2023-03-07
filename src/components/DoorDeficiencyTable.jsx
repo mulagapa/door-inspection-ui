@@ -13,13 +13,37 @@ const DoorDeficienciesTable = (props) => {
     const [optionList, setOptionList] = useState([])
     const [optionDeficiencyList, setOptionDeficiencyList] = useState([])
     const Deficienciesref = useRef(null);
+    const tableRef = useRef(null);
 
-    const table_style = {
-        'border' : '1 px solid white',
-        'color' : 'white',
-        'margin': 'auto'
-    }
+    const tableStyle = {
+        table: {
+          borderCollapse: 'collapse',
+          width: '100%',
+          marginTop: '20px',
+          border: '1px solid black',
+        },
+        
+        th: {
+          textAlign: 'center',
+          padding: '8px',
+          backgroundColor: '#555',
+          color: 'white',
+          border: '1px solid black',
+        },
+        
+        td: {
+          textAlign: 'center',
+          padding: '8px',
+          backgroundColor: 'white',
+          border: '1px solid black',
+        },
+        
+        'tr:nth-child(even)': {
+          backgroundColor: '#f2f2f2',
+        },
+      };
 
+      
     const fetchDeficiencyData = () => {
         axios
             .get('http://127.0.0.1:5000/api/lockshop/doordeficiencies', {
@@ -68,6 +92,13 @@ const DoorDeficienciesTable = (props) => {
         }
     }, [update])
 
+    useEffect(() => {
+        if (tableRef.current) {
+          tableRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, [optionList]);
+    
+
 
     function removeDeficiency(id) {
         axios
@@ -104,27 +135,8 @@ const DoorDeficienciesTable = (props) => {
     return (
         <>
             <div className="container">
-                <table style={table_style}>
-                    <thead>
-                        <tr>
-                            <th style={table_style}>index</th>
-                            <th style={table_style}>Deficiency Description</th>
-                            <th style={table_style}>Deficiency Type</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {optionList.map((row, index) => (
-                        <tr>
-                            <td style={table_style}>{index+1}</td>
-                            <td style={table_style}>{row['deficiency_description']}</td>
-                            <td style={table_style}>{row['deficiency_type']}</td>
-                            <td style={table_style}><button onClick={() => removeDeficiency(row['id'])}>Delete</button></td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <form onSubmit={handleAddDeficiency}>
+
+            <form onSubmit={handleAddDeficiency}>
                     <select value={selectDeficiency} onChange={(event) => setSelecteDeficiency(event.target.value)}>
                     {
                         (optionDeficiencyList !== undefined) ?
@@ -135,8 +147,34 @@ const DoorDeficienciesTable = (props) => {
                             )):<></>
                     }
                     </select>
-                    <button type="submit">Add Deficiency</button>
+                    <button type="submit" style={{marginLeft:'20px'}}>Add Deficiency</button>
                 </form>
+
+                {
+                optionList.length > 0 ? (
+                    <table style={tableStyle.table} ref={tableRef}>
+                        <thead>
+                            <tr>
+                                <th style={tableStyle.th}>index</th>
+                                <th style={tableStyle.th}>Deficiency Description</th>
+                                <th style={tableStyle.th}>Deficiency Type</th>
+                                <th style={tableStyle.th}> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {optionList.map((row, index) => (
+                            <tr>
+                                <td style={tableStyle.td}>{index+1}</td>
+                                <td style={tableStyle.td}>{row['deficiency_description']}</td>
+                                <td style={tableStyle.td}>{row['deficiency_type']}</td>
+                                <td style={tableStyle.td}><button onClick={() => removeDeficiency(row['id'])}>Delete</button></td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    ) 
+                    : null
+                }
             </div>
         </>
     );
