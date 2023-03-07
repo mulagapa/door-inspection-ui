@@ -155,7 +155,7 @@ const DoorDeficienciesTable = (props) => {
                     <table style={tableStyle.table} ref={tableRef}>
                         <thead>
                             <tr>
-                                <th style={tableStyle.th}>index</th>
+                                <th style={tableStyle.th}>Index</th>
                                 <th style={tableStyle.th}>Deficiency Description</th>
                                 <th style={tableStyle.th}>Deficiency Type</th>
                                 <th style={tableStyle.th}> Action </th>
