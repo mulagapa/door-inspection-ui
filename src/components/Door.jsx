@@ -57,12 +57,17 @@ const Door = (props) =>{
                 if (response.status === 200) {
                     setOptionList(prev => {
                         return [...data.result.door_data]  /*Change Value*/
-                    })
+                    });
+                    handleInitialDoor(data.result.door_data[0].door_no); // Fetching data for first door that is fetched from backend
                 } else {
                     setOptionList(['test'])
                 }
             })
             .catch((error) => console.log(error));
+    };
+
+    const handleInitialDoor = (door_no) =>{
+        fetchDataId (door_no);
     };
 
     const handleChange = (event) => {
@@ -72,13 +77,12 @@ const Door = (props) =>{
             if (optionList[id]["door_name"] === event.target.value) {
                 console.log ("updating attributes props")
                 fetchDataId (optionList[id]["door_no"])
-                props.setAttributesActive (optionList[id])
             }
         }
     }
 
     useEffect(() => {
-        fetchData();
+        fetchData(); // Called only once. In here we should also handle and fetch data for first door.
         setUpdate (false);
     }, [update, props.floor_value, props.building_value])
 
