@@ -36,9 +36,9 @@ const ExcelToCSV = () => {
   return (
     <div>
       <input type="file" accept=".xlsx" onChange={handleFileChange} />
-      {csvData && (
+      {/* {csvData && (
         <textarea value={csvData} readOnly rows={50} cols={50} />
-      )}
+      )} */}
     </div>
   );
 };
