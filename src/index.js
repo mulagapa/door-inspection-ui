@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 root.render(
   <React.StrictMode>
     <App />

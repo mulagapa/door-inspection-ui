@@ -10,6 +10,7 @@ import Building from './components/Buildings';
 import Format from './components/Format';
 import { Register } from './components/RegisterForm';
 import { Login } from './components/LoginForm';
+import { GoogleLogin } from './components/GoogleLogin';
 import { UpdateUserPassword } from './components/UpdateUser';
 
 
@@ -25,6 +26,7 @@ function App() {
             {/* <Route path="/buildings"  element = {<Building/>} /> */}
             <Route path="/form"  element = {<Format/>} />
             <Route path="/login" element = {<Login/>} />
+            <Route path="/googlelogin" element = {<GoogleLogin/>} />
             <Route path="/update" element = {<UpdateUserPassword/>} />
             <Route path="/register" element = {<Register/>} />
           </Routes>
