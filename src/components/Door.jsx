@@ -4,12 +4,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
-import {FloatingLabel } from 'react-bootstrap';
+import { FloatingLabel } from 'react-bootstrap';
 import '../HomePage.css'
 import Cookies from 'universal-cookie';
 
 
-const Door = (props) =>{
+const Door = (props) => {
     const [select, setSelected] = useState(() => "Door");
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
@@ -21,7 +21,7 @@ const Door = (props) =>{
     }
 
     const fetchDataId = (door_id) => {
-        console.log ("request came param is", door_id)
+        console.log("request came param is", door_id)
         axios
             .get('http://127.0.0.1:5000/api/lockshop/door', {
                 params: {
@@ -32,10 +32,10 @@ const Door = (props) =>{
             })
             .then((response) => {
                 const { data } = response;
-                console.log ("new response is", response)
+                console.log("new response is", response)
                 if (response.status === 200) {
-                    props.setAttributesActive (data.result.door_data)
-                    
+                    props.setAttributesActive(data.result.door_data)
+
                 } else {
                     setOptionList(['test'])
                 }
@@ -66,24 +66,24 @@ const Door = (props) =>{
             .catch((error) => console.log(error));
     };
 
-    const handleInitialDoor = (door_no) =>{
-        fetchDataId (door_no);
+    const handleInitialDoor = (door_no) => {
+        fetchDataId(door_no);
     };
 
     const handleChange = (event) => {
-        console.log ("door changed", event.target.value, optionList);
+        console.log("door changed", event.target.value, optionList);
         let newlist = optionList
         for (let id in newlist) {
             if (optionList[id]["door_name"] === event.target.value) {
-                console.log ("updating attributes props")
-                fetchDataId (optionList[id]["door_no"])
+                console.log("updating attributes props")
+                fetchDataId(optionList[id]["door_no"])
             }
         }
     }
 
     useEffect(() => {
         fetchData(); // Called only once. In here we should also handle and fetch data for first door.
-        setUpdate (false);
+        setUpdate(false);
     }, [update, props.floor_value, props.building_value])
 
     const addDoor = (e) => {
@@ -91,60 +91,61 @@ const Door = (props) =>{
         let doorId = doorsId.current.value
         console.log(doorId)
         axios.post('http://127.0.0.1:5000/api/lockshop/door', {
-            "data": {"floor_no": props.floor_value,
-            "building_id": props.building_value,
-            "door_name": doorId,
-            "compliance_id": 1, "fire_rating_id": 1, "category_id": 1, "frame_id": 1,
-            "size": "size", "type_id": 1, "vision_lite": false, "transom_id": 1, "side_lite": false, 
-            "hinge_id": 1, "sweep_id": 1, "hinge_size": "100", "continous_hinge_id": 1, "pivot_id": 1, 
-            "auto_dr_btm_id": 1, "power_transfer_id": 1, "auto_operator_id":1, "closer_id" : 1,
-            "lockset_id": 1, "astragal_id" : 1, "electric_lockset_id": 1, "ao_wall_plate_id" : 1,
-            "coordinator_id" : 1, "cylinder_id": 1, "strike_id": 1, "flush_bolt_id": 1,
-            "exit_device_id": 1, "seal_id": 1, "stop_id": 1, "threshold_id": 1,
-            "mag_holder_id" : 1, "electric_exit_device": false,
-            "mullion": false, "trim_id": 1, "delay_egress_id": 1
-        }
+            "data": {
+                "floor_no": props.floor_value,
+                "building_id": props.building_value,
+                "door_name": doorId,
+                "compliance_id": 1, "fire_rating_id": 1, "category_id": 1, "frame_id": 1,
+                "size": "size", "type_id": 1, "vision_lite": false, "transom_id": 1, "side_lite": false,
+                "hinge_id": 1, "sweep_id": 1, "hinge_size": "100", "continous_hinge_id": 1, "pivot_id": 1,
+                "auto_dr_btm_id": 1, "power_transfer_id": 1, "auto_operator_id": 1, "closer_id": 1,
+                "lockset_id": 1, "astragal_id": 1, "electric_lockset_id": 1, "ao_wall_plate_id": 1,
+                "coordinator_id": 1, "cylinder_id": 1, "strike_id": 1, "flush_bolt_id": 1,
+                "exit_device_id": 1, "seal_id": 1, "stop_id": 1, "threshold_id": 1,
+                "mag_holder_id": 1, "electric_exit_device": false,
+                "mullion": false, "trim_id": 1, "delay_egress_id": 1
+            }
         }).then(response => {
             doorsId.current.value = "";
-            setSelected ("")
+            setSelected("")
             setUpdate(true)
         })
     }
 
     return (
         <>
-        <div >
-            <div className='row'>
-                <div className='left-panel box'>
-                    {
-                        (optionList !== undefined)?
-                            (optionList.length > 0)?
-                                <FloatingLabel label="Door">
-                                <Form.Select placeholder='Select Door' onChange={handleChange}>
-                                    {
-                                        optionList.map((item) => (
-                                            <option key={item.door_no} value={item.door_name}>
-                                                {item.door_name}
-                                            </option>
-                                        ))
-                                    }
-                                </Form.Select>
-                                </FloatingLabel>
-                            :<p style={colorStyle}>No Doors To display for this floor</p>
-                        :<></>  
-                    }
-                        
-                </div>
-                <div className='right-panel box'>
-                    <Form>
-                        <Form.Control type="text" placeholder="Create New Door" ref={doorsId} />
-                        <Button variant="primary" type="submit" onClick={(e) => addDoor(e)}>
-                            Submit
-                        </Button>
-                    </Form>
+            <div >
+                <div className='row'>
+                    <div className='left-panel box'>
+                        {
+                            (optionList !== undefined) ?
+                                (optionList.length > 0) ?
+                                    <FloatingLabel label="Door">
+                                        <Form.Select placeholder='Select Door' onChange={handleChange}>
+                                            {
+                                                optionList.map((item) => (
+                                                    <option key={item.door_no} value={item.door_name}>
+                                                        {item.door_name}
+                                                    </option>
+                                                ))
+                                            }
+                                        </Form.Select>
+                                    </FloatingLabel>
+                                    : <p style={colorStyle}>No Doors To display for this floor</p>
+                                : <></>
+                        }
+
+                    </div>
+                    <div className='right-panel box'>
+                        <Form>
+                            <Form.Control type="text" placeholder="Create New Door" ref={doorsId} />
+                            <Button variant="primary" type="submit" onClick={(e) => addDoor(e)}>
+                                Submit
+                            </Button>
+                        </Form>
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     );
 }
