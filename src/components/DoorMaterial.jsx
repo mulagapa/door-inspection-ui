@@ -14,7 +14,7 @@ const DoorMaterial = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doormaterial', {
+            .get('http://127.0.0.1:9000/api/lockshop/doormaterial', {
             })
             .then((response) => {
                 const { data } = response;
@@ -32,25 +32,25 @@ const DoorMaterial = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doormaterial', {
-            params: {
-                "id": props.door_material_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.material)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doormaterial', {
+                params: {
+                    "id": props.door_material_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.material)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -60,8 +60,8 @@ const DoorMaterial = (props) => {
     const addMaterial = (e) => {
         e.preventDefault()
         let doormaterial = materialref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doormaterial', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doormaterial', {
             "material": doormaterial,
         }).then(response => {
             materialref.current.value = "";
@@ -71,10 +71,10 @@ const DoorMaterial = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["material"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -85,12 +85,12 @@ const DoorMaterial = (props) => {
             <FloatingLabel label="Door Material">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.material}>
-                                {item.material}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.material}>
+                                    {item.material}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

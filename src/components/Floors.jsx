@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
-import {FloatingLabel } from 'react-bootstrap';
+import { FloatingLabel } from 'react-bootstrap';
 import axios from 'axios';
 import '../HomePage.css'
 
@@ -18,9 +18,9 @@ const Floor = (props) => {
         color: 'white'
     }
 
-    useEffect(() => {  
+    useEffect(() => {
         fetchData();
-        setUpdate (false);
+        setUpdate(false);
     }, [update, props.value])
 
     const handleChange = (event) => {
@@ -28,9 +28,9 @@ const Floor = (props) => {
     }
 
     const fetchData = () => {
-        console.log ("fetchiing data of floors");
+        console.log("fetchiing data of floors");
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/floor', {
+            .get('http://127.0.0.1:9000/api/lockshop/floor', {
                 params: {
                     "building_id": props.value
                 }
@@ -53,7 +53,7 @@ const Floor = (props) => {
         let buildingId = props.value
         let floorId = parseInt(floorsId.current.value)
         console.log(floorId)
-        axios.post('http://127.0.0.1:5000/api/lockshop/floor', {
+        axios.post('http://127.0.0.1:9000/api/lockshop/floor', {
             "floor_no": floorId,
             "building_id": buildingId
         }).then(response => {
@@ -65,38 +65,38 @@ const Floor = (props) => {
 
     return (
         <>
-        <div >
-            <div className='row'>
-                <div className='left-panel box'>
-                    {
-                        (optionList !== undefined) ?
-                            (optionList.length > 0)?
-                                <FloatingLabel label="Floors">
-                                    <Form.Select placeholder='Select Floor' onChange={handleChange}>
-                                        {
+            <div >
+                <div className='row'>
+                    <div className='left-panel box'>
+                        {
+                            (optionList !== undefined) ?
+                                (optionList.length > 0) ?
+                                    <FloatingLabel label="Floors">
+                                        <Form.Select placeholder='Select Floor' onChange={handleChange}>
+                                            {
                                                 optionList.map((item) => (
                                                     <option key={item.floor_no} value={item.floor_no}>
                                                         {item.floor_no}
                                                     </option>
                                                 ))
-                                        }
-                                    </Form.Select>
-                                </FloatingLabel>
-                                :<p style={colorStyle}>No Floors To display for this Building</p>
-                            :<></>
-                    }
-                    
-                </div>
-                <div className='right-panel box'>
-                    <Form>
-                        <Form.Control type="number" placeholder="Create New Floor" ref={floorsId} />
-                        <Button variant="primary" type="submit" onClick={(e) => addFloor(e)}>
-                            Submit
-                        </Button>
-                    </Form>
+                                            }
+                                        </Form.Select>
+                                    </FloatingLabel>
+                                    : <p style={colorStyle}>No Floors To display for this Building</p>
+                                : <></>
+                        }
+
+                    </div>
+                    <div className='right-panel box'>
+                        <Form>
+                            <Form.Control type="number" placeholder="Create New Floor" ref={floorsId} />
+                            <Button variant="primary" type="submit" onClick={(e) => addFloor(e)}>
+                                Submit
+                            </Button>
+                        </Form>
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     );
 }

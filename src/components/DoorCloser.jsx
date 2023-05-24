@@ -15,7 +15,7 @@ const DoorCloser = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorcloser', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorcloser', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,25 +33,25 @@ const DoorCloser = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorcloser', {
-            params: {
-                "id": props.closer_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.name)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorcloser', {
+                params: {
+                    "id": props.closer_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.name)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -61,8 +61,8 @@ const DoorCloser = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let closerName = closerref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorcloser', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorcloser', {
             "name": closerName,
         }).then(response => {
             closerref.current.value = "";
@@ -72,24 +72,24 @@ const DoorCloser = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["name"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
-    
+
     return (
         <>
             <FloatingLabel label="Closer">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.name}>
-                                {item.name}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.name}>
+                                    {item.name}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

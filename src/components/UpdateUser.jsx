@@ -42,7 +42,7 @@ export const UpdateUserPassword = (props) => {
     console.log(current_password);
     console.log(new_password);
     console.log(confirm_new_password);
-    axios.put('http://127.0.0.1:5000/api/lockshop/update', {
+    axios.put('http://127.0.0.1:9000/api/lockshop/update', {
       "authorization": {
         "email": email, "current_password": current_password,
         "new_password": new_password

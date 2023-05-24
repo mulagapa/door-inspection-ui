@@ -15,7 +15,7 @@ const DoorType = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doortype', {
+            .get('http://127.0.0.1:9000/api/lockshop/doortype', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,25 +33,25 @@ const DoorType = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doortype', {
-            params: {
-                "id": props.type_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.name)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doortype', {
+                params: {
+                    "id": props.type_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.name)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -61,8 +61,8 @@ const DoorType = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let typeName = typeref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doortype', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doortype', {
             "name": typeName,
         }).then(response => {
             typeref.current.value = "";
@@ -72,10 +72,10 @@ const DoorType = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["name"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -86,12 +86,12 @@ const DoorType = (props) => {
             <FloatingLabel label="Type">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.name}>
-                                {item.name}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.name}>
+                                    {item.name}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

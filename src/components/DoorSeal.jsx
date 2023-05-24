@@ -14,7 +14,7 @@ const DoorSeal = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorseal', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorseal', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,36 +33,36 @@ const DoorSeal = (props) => {
     const fetchDataId = () => {
         console.log("props.seal_id ", props.seal_id)
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorseal', {
-            params: {
-                "id": props.seal_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorseal', {
+                params: {
+                    "id": props.seal_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
         }
-    },[props.seal_id])
+    }, [props.seal_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
         let sealName = sealref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorseal', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorseal', {
             "type": sealName,
         }).then(response => {
             sealref.current.value = "";
@@ -72,24 +72,24 @@ const DoorSeal = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
-    
+
     return (
         <>
             <FloatingLabel label="Seal System">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.type}>
-                                {item.type}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.type}>
+                                    {item.type}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

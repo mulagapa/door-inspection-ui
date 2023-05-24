@@ -14,7 +14,7 @@ const DoorSize = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorsize', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorsize', {
             })
             .then((response) => {
                 const { data } = response;
@@ -32,25 +32,25 @@ const DoorSize = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorsize', {
-            params: {
-                "id": props.size_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.size)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorsize', {
+                params: {
+                    "id": props.size_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.size)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -60,8 +60,8 @@ const DoorSize = (props) => {
     const addDoorSize = (e) => {
         e.preventDefault()
         let doorsize = sizeref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorsize', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorsize', {
             "size": doorsize,
         }).then(response => {
             sizeref.current.value = "";
@@ -71,10 +71,10 @@ const DoorSize = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["size"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -85,12 +85,12 @@ const DoorSize = (props) => {
             <FloatingLabel label="Door Size">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.size}>
-                                {item.size}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.size}>
+                                    {item.size}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

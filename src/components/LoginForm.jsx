@@ -31,7 +31,7 @@ export const Login = (props) => {
     e.preventDefault();
     console.log(email);
     console.log(password);
-    axios.post('http://127.0.0.1:5000/api/lockshop/login', {
+    axios.post('http://127.0.0.1:9000/api/lockshop/login', {
       "authorization": { "email": email, "password": password }
     }).then(response => {
       // Set cookie with expiry time 30 minutes

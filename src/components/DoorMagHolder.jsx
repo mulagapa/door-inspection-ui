@@ -15,7 +15,7 @@ const DoorMagholder = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doormagholder', {
+            .get('http://127.0.0.1:9000/api/lockshop/doormagholder', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,25 +33,25 @@ const DoorMagholder = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doormagholder', {
-            params: {
-                "id": props.magholder_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doormagholder', {
+                params: {
+                    "id": props.magholder_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -61,8 +61,8 @@ const DoorMagholder = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let magholderName = magholderref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doormagholder', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doormagholder', {
             "type": magholderName,
         }).then(response => {
             magholderref.current.value = "";
@@ -72,10 +72,10 @@ const DoorMagholder = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -86,12 +86,12 @@ const DoorMagholder = (props) => {
             <FloatingLabel label="MagHolder">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.type}>
-                                {item.type}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.type}>
+                                    {item.type}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

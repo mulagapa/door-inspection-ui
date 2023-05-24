@@ -6,7 +6,7 @@ import { Button, FloatingLabel } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
 
-const DoorFrame= (props) => {
+const DoorFrame = (props) => {
     const [select, setSelected] = useState(() => "Select frame");
     const [update, setUpdate] = useState(true)
     const [optionList, setOptionList] = useState([])
@@ -15,7 +15,7 @@ const DoorFrame= (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorframe', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorframe', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,25 +33,25 @@ const DoorFrame= (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorframe', {
-            params: {
-                "id": props.frame_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.material)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorframe', {
+                params: {
+                    "id": props.frame_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.material)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -61,8 +61,8 @@ const DoorFrame= (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let framematerial = frameref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorframe', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorframe', {
             "material": framematerial,
         }).then(response => {
             frameref.current.value = "";
@@ -72,10 +72,10 @@ const DoorFrame= (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["material"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -86,12 +86,12 @@ const DoorFrame= (props) => {
             <FloatingLabel label="Frame">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.material}>
-                                {item.material}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.material}>
+                                    {item.material}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

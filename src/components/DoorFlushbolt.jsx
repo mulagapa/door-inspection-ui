@@ -15,7 +15,7 @@ const DoorFlushbolt = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorflushbolt', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorflushbolt', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,36 +33,36 @@ const DoorFlushbolt = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorflushbolt', {
-            params: {
-                "id": props.flushbolt_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorflushbolt', {
+                params: {
+                    "id": props.flushbolt_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
         }
-    },[props.flushbolt_id])
+    }, [props.flushbolt_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
         let flushboltName = flushboltref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorflushbolt', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorflushbolt', {
             "type": flushboltName,
         }).then(response => {
             flushboltref.current.value = "";
@@ -72,10 +72,10 @@ const DoorFlushbolt = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -86,12 +86,12 @@ const DoorFlushbolt = (props) => {
             <FloatingLabel label="Flush Bolt">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.type}>
-                                {item.type}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.type}>
+                                    {item.type}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>
