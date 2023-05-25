@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {read, utils} from "xlsx";
+import { read, utils } from "xlsx";
 import axios from 'axios';
 
 const ExcelToCSV = () => {
@@ -20,7 +20,7 @@ const ExcelToCSV = () => {
       setCsvData(csv);
 
       axios
-        .post("http://127.0.0.1:5000/api/lockshop/csv", { csv })
+        .post("http://127.0.0.1:9000/api/lockshop/csv", { csv })
         .then((res) => {
           console.log("Data successfully posted to the backend:", res);
         })
@@ -30,7 +30,7 @@ const ExcelToCSV = () => {
     };
 
     reader.readAsArrayBuffer(file);
-    console.log ("CSV Data", csvData);
+    console.log("CSV Data", csvData);
   };
 
   return (

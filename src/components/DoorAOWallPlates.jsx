@@ -14,7 +14,7 @@ const DoorAOWallPlate = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/dooraowallplate', {
+            .get('http://127.0.0.1:9000/api/lockshop/dooraowallplate', {
             })
             .then((response) => {
                 const { data } = response;
@@ -32,25 +32,25 @@ const DoorAOWallPlate = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/dooraowallplate', {
-            params: {
-                "id": props.ao_wall_plate_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/dooraowallplate', {
+                params: {
+                    "id": props.ao_wall_plate_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -60,8 +60,8 @@ const DoorAOWallPlate = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let aoWallPlateType = aoWallPlateref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/dooraowallplate', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/dooraowallplate', {
             "type": aoWallPlateType,
         }).then(response => {
             aoWallPlateref.current.value = "";
@@ -71,24 +71,24 @@ const DoorAOWallPlate = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
-    
+
     return (
         <>
             <FloatingLabel label="Wall Plate">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.type}>
-                                {item.type}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.type}>
+                                    {item.type}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

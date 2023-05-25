@@ -15,7 +15,7 @@ const DoorTransom = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doortransom', {
+            .get('http://127.0.0.1:9000/api/lockshop/doortransom', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,36 +33,36 @@ const DoorTransom = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doortransom', {
-            params: {
-                "id": props.transom_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.material)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doortransom', {
+                params: {
+                    "id": props.transom_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.material)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
         }
-    },[props.transom_id])
+    }, [props.transom_id])
 
     const addBuilding = (e) => {
         e.preventDefault()
         let transommaterial = transomref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doortransom', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doortransom', {
             "material": transommaterial,
         }).then(response => {
             transomref.current.value = "";
@@ -72,10 +72,10 @@ const DoorTransom = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["material"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -86,12 +86,12 @@ const DoorTransom = (props) => {
             <FloatingLabel label="Transom">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.material}>
-                                {item.material}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.material}>
+                                    {item.material}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

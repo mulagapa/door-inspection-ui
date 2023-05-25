@@ -15,7 +15,7 @@ const DoorPowertransfer = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorpowertransfer', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorpowertransfer', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,25 +33,25 @@ const DoorPowertransfer = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorpowertransfer', {
-            params: {
-                "id": props.powertransfer_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorpowertransfer', {
+                params: {
+                    "id": props.powertransfer_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -61,8 +61,8 @@ const DoorPowertransfer = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let powertransferName = powertransferref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorpowertransfer', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorpowertransfer', {
             "type": powertransferName,
         }).then(response => {
             powertransferref.current.value = "";
@@ -72,10 +72,10 @@ const DoorPowertransfer = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -86,12 +86,12 @@ const DoorPowertransfer = (props) => {
             <FloatingLabel label="Power Transfer">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.type}>
-                                {item.type}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.type}>
+                                    {item.type}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

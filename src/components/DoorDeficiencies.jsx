@@ -15,15 +15,15 @@ const DoorDeficiencies = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doordeficiencies', {
+            .get('http://127.0.0.1:9000/api/lockshop/doordeficiencies', {
             })
             .then((response) => {
                 const { data } = response;
-                console.log('data is : ',data);
+                console.log('data is : ', data);
                 if (response.status === 200) {
-                        setOptionList(prev => {
-                            return [...data.result.data]
-                        }
+                    setOptionList(prev => {
+                        return [...data.result.data]
+                    }
                     )
                 } else {
                     setOptionList(['test'])
@@ -37,20 +37,20 @@ const DoorDeficiencies = (props) => {
     const fetchDataId = () => {
         console.log('fetchdata has been called here.')
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doordeficiencies', {
-            params: {
-                "id": props.deficiencies_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doordeficiencies', {
+                params: {
+                    "id": props.deficiencies_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
@@ -65,8 +65,8 @@ const DoorDeficiencies = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let DeficienciesName = Deficienciesref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doordeficiencies', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doordeficiencies', {
             "type": DeficienciesName,
         }).then(response => {
             Deficienciesref.current.value = "";
@@ -76,26 +76,26 @@ const DoorDeficiencies = (props) => {
     }
 
     const handleChange = (event) => {
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
 
-    
+
     return (
         <>
             {/* <button onClick={addDeficiency}>Add Deficiency</button> */}
             <FloatingLabel label="Deficiencies">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.description}>
-                                {item.description}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.description}>
+                                    {item.description}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>

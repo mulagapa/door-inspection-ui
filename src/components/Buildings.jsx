@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
-import {FloatingLabel } from 'react-bootstrap';
+import { FloatingLabel } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import Form from 'react-bootstrap/Form'
 import { useRef } from 'react';
@@ -20,12 +20,12 @@ const Building = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/building', {
+            .get('http://127.0.0.1:9000/api/lockshop/building', {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 },
                 params: {
-                    "token": cookies.get('jwt_token','')
+                    "token": cookies.get('jwt_token', '')
                 }
             })
             .then((response) => {
@@ -57,7 +57,7 @@ const Building = (props) => {
         // let codeName = coderef.current.value
         let floorNumber = floorsref.current.value
 
-        axios.post('http://127.0.0.1:5000/api/lockshop/building', {
+        axios.post('http://127.0.0.1:9000/api/lockshop/building', {
             "name": buildingName,
             "code": buildingName,
             "no_of_floors": floorNumber
@@ -73,48 +73,48 @@ const Building = (props) => {
     const handleChange = (event) => {
         for (let id in optionList) {
             if (optionList[id]["name"] === event.target.value) {
-                props.setFloorActive (optionList[id]["id"])
+                props.setFloorActive(optionList[id]["id"])
             }
         }
     }
-    
+
     return (
         <>
-            
+
             <FloatingLabel label="Building">
                 <>
-                <Form.Select placeholder='SelectBuilding' onChange={handleChange}>
-                    {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.name}>
-                                {item.name}
-                            </option>
-                        ))
-                        :
-                        <></>
-                    }
-                
-                </Form.Select>
+                    <Form.Select placeholder='SelectBuilding' onChange={handleChange}>
+                        {
+                            (optionList !== undefined) ?
+                                optionList.map((item) => (
+                                    <option key={item.id} value={item.name}>
+                                        {item.name}
+                                    </option>
+                                ))
+                                :
+                                <></>
+                        }
 
-                {   2 == 3?
-                    <Form>
-                    <FloatingLabel label="Building Name">
-                        <Form.Control type="text" placeholder="Enter Building" ref={buildingref} />
-                    </FloatingLabel>
-                    <FloatingLabel label="Building Code">
-                        <Form.Control type="text" placeholder="Enter Code" ref={coderef} />
-                    </FloatingLabel>
-                    <FloatingLabel label="Number of Floors">
-                        <Form.Control type="number" placeholder="Enter Floors" ref={floorsref} />
-                    </FloatingLabel>
-                    <Button variant="primary" type="submit" onClick={(e) => addBuilding(e)}>
-                        Submit
-                    </Button>
-                </Form>:<></>
-                }
+                    </Form.Select>
+
+                    {2 == 3 ?
+                        <Form>
+                            <FloatingLabel label="Building Name">
+                                <Form.Control type="text" placeholder="Enter Building" ref={buildingref} />
+                            </FloatingLabel>
+                            <FloatingLabel label="Building Code">
+                                <Form.Control type="text" placeholder="Enter Code" ref={coderef} />
+                            </FloatingLabel>
+                            <FloatingLabel label="Number of Floors">
+                                <Form.Control type="number" placeholder="Enter Floors" ref={floorsref} />
+                            </FloatingLabel>
+                            <Button variant="primary" type="submit" onClick={(e) => addBuilding(e)}>
+                                Submit
+                            </Button>
+                        </Form> : <></>
+                    }
                 </>
-        </FloatingLabel>
+            </FloatingLabel>
         </>
     );
 }

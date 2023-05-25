@@ -15,7 +15,7 @@ const DoorAstragal = (props) => {
 
     const fetchData = () => {
         axios
-            .get('http://127.0.0.1:5000/api/lockshop/doorastragal', {
+            .get('http://127.0.0.1:9000/api/lockshop/doorastragal', {
             })
             .then((response) => {
                 const { data } = response;
@@ -33,25 +33,25 @@ const DoorAstragal = (props) => {
 
     const fetchDataId = () => {
         axios
-        .get('http://127.0.0.1:5000/api/lockshop/doorastragal', {
-            params: {
-                "id": props.astragal_id
-            }
-        })
-        .then((response) => {
-            const { data } = response;
-            if (response.status === 200) {
-                setSelected (data.result.data.type)
-            } else {
-                setSelected ("None")
-            }
-        })
-        .catch((error) => console.log(error));
+            .get('http://127.0.0.1:9000/api/lockshop/doorastragal', {
+                params: {
+                    "id": props.astragal_id
+                }
+            })
+            .then((response) => {
+                const { data } = response;
+                if (response.status === 200) {
+                    setSelected(data.result.data.type)
+                } else {
+                    setSelected("None")
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     useEffect(() => {
         // fetchData();
-        fetchDataId ();
+        fetchDataId();
         if (update === true) {
             fetchData();
             setUpdate(false);
@@ -61,8 +61,8 @@ const DoorAstragal = (props) => {
     const addBuilding = (e) => {
         e.preventDefault()
         let astragalName = astragalref.current.value
-        
-        axios.post('http://127.0.0.1:5000/api/lockshop/doorastragal', {
+
+        axios.post('http://127.0.0.1:9000/api/lockshop/doorastragal', {
             "type": astragalName,
         }).then(response => {
             astragalref.current.value = "";
@@ -78,10 +78,10 @@ const DoorAstragal = (props) => {
         // setFloor(false)
         // setFloor(false)
         // }
-        setSelected (event.target.value)
+        setSelected(event.target.value)
         for (let id in optionList) {
             if (optionList[id]["type"] === event.target.value)
-                props.handler (optionList[id]["id"])
+                props.handler(optionList[id]["id"])
         }
     }
     useEffect(() => {
@@ -92,17 +92,17 @@ const DoorAstragal = (props) => {
             <FloatingLabel label="Astragal">
                 <Form.Select value={select} onChange={handleChange}>
                     {
-                    (optionList !== undefined) ?
-                        optionList.map((item) => (
-                            <option key={item.id} value={item.type}>
-                                {item.type}
-                            </option>
-                        )):<></>
+                        (optionList !== undefined) ?
+                            optionList.map((item) => (
+                                <option key={item.id} value={item.type}>
+                                    {item.type}
+                                </option>
+                            )) : <></>
                     }
                 </Form.Select>
             </FloatingLabel>
         </>
-        
+
     );
 }
 
